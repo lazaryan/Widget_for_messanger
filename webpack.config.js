@@ -5,13 +5,14 @@ const path               	= require('path');
 
 const MiniCssExtractPlugin 	= require('mini-css-extract-plugin');
 const CleanWebpackPlugin 	= require('clean-webpack-plugin');
+const UglifyJsPlugin 		= require('uglifyjs-webpack-plugin');
 
 const NODE_ENV 		= process.env.NODE_ENV || 'development';
 const isDevelopment = NODE_ENV === 'development';
 
 const publicPath	= 'http://localhost:8080/public/assets';
-const jsName 		= !isDevelopment ? 'bundle-[hash].js' : 'bundle.js';
-const cssName 		= !isDevelopment ? 'styles-[hash].css' : 'styles.css';
+const jsName 		= 'bundle.js';
+const cssName 		= 'styles.css';
 
 
 let plugins = [
@@ -25,6 +26,8 @@ let plugins = [
     })
 ];
 
+let optimization = {};
+
 if (!isDevelopment) {
 	plugins.push(
 		new CleanWebpackPlugin(['public/assets/'], {
@@ -33,10 +36,22 @@ if (!isDevelopment) {
       		dry: false
 		})
 	);
+	plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+
+	optimization['minimizer'] = [new UglifyJsPlugin({
+		parallel: true,
+		cache: true,
+		sourceMap: true,
+		uglifyOptions: {
+			keep_fnames: false,
+			mangle: true,
+			compress: true
+		}
+	})];
 }
 
 module.exports = {
-	entry: ['@babel/polyfill', './src/client.js'],
+	entry: ['./src/client.js'],
 	output: {
 		path: `${__dirname}/public/assets/`,
 		filename: jsName,
@@ -50,6 +65,7 @@ module.exports = {
     	moduleExtensions: ['*', '-loader']
   	},
   	plugins,
+  	optimization,
 	module: {
 		rules: [
 			{
