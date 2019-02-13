@@ -13,13 +13,21 @@ class Link extends Component {
 			<div className="message-block__link">
 				<div className="message-block__link-image-block">
 					<a className="message-block__link-image" href={this.renderURL()} target="_blank">
-						<img className="message-block__link-logo" src={this.props.icon} />
+						{this.Image()}
 					</a>
 				</div>
 				<div className="message-block__link-body">
 					<p className="message-block__link-title">{this.props.title}</p>
 				</div>
 			</div>
+		)
+	}
+
+	Image () {
+		if (!this.props.icon) return null;
+
+		return (
+			<img className="message-block__link-logo" src={this.props.icon} />
 		)
 	}
 
