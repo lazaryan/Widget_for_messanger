@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
-import './MessageLinks.less';
+import '_styles/MessageLinks.less';
 
 import Link from '../Link';
 
-import logo_whatsApp from './icons/Icon_WhatsApp.svg';
-import logo_facebook from './icons/Icon_Facebook_Messenger.svg';
+import logo_whatsApp from './icons/whatsapp.svg';
+import logo_facebook from './icons/messenger.svg';
+import logo_viber from './icons/viber.svg';
+import logo_email from './icons/message.svg';
 
 class MessageLinks extends Component {
 	render () {
@@ -27,8 +29,22 @@ class MessageLinks extends Component {
 					title="Messanger"
 					icon={logo_facebook}
 				/>
-				<a target="_blank" href="https://api.whatsapp.com/send?phone=79185966155&text=test_text">whatsapp</a>
-				<a target="_blank" href="https://viber://chat?number=79185966155">viber</a>
+				<Link
+					url={{
+						href: 'viber://chat?',
+						number: '79185966155'
+					}}
+					title="Viber"
+					icon={logo_viber}
+				/>
+				<Link 
+					url={{
+						href: 'lazaryan99@mail.ru'
+					}}
+					type="email"
+					title="Наша почта"
+					icon={logo_email}
+				/>
 			</div>
 		)
 	}

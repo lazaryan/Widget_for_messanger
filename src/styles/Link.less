@@ -1,9 +1,18 @@
+@import (less) './variable';
+
 .message-block {
 	&__link {
 		height: 90px;
 		display: flex;
 		flex-wrap: wrap;
-		border-bottom: 1px solid #D1CFCF;
+		border-bottom: 1px solid @border;
+	}
+
+	&__link-image {
+		width: 70px;
+		height: 70px;
+		background-color: #DADADA;
+		border-radius: 50%;
 	}
 
 	&__link-image-block {
@@ -11,10 +20,11 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background-color: #E7E7E7;
 	}
 
 	&__link-logo {
-		width: 70px;
+		width: 100%;
 	}
 
 	&__link-body {
@@ -26,5 +36,6 @@
 		line-height: 90px;
 		font-weight: 500;
 		font-size: 20px;
+		text-align: center;
 	}
 }

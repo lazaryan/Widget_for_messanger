@@ -1,0 +1,39 @@
+@import (less) './variable';
+
+.react-button {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: @bg;
+	border: 2px solid @border;
+	cursor: pointer;
+	outline: none;
+	float: right;
+	
+	&__default-children {
+		width: 80%;
+		height: 2px;
+		background-color: #222;
+		display: block;
+		position: relative;
+		margin: auto;
+		
+		&::before, 
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 2px;
+			background-color: #222;
+		}
+
+		&::before {
+			top: 10px;
+		}
+
+		&::after {
+			bottom: 10px;
+		}
+	}
+}

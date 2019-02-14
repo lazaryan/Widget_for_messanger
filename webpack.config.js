@@ -59,7 +59,10 @@ module.exports = {
 	},
 	resolve: {
     	modules: ['node_modules', 'public'],
-    	extensions: ['*', '.js', '.jsx']
+    	extensions: ['*', '.js', '.jsx'],
+    	alias: {
+    		_styles: path.join(__dirname, 'src/styles')
+    	}
   	},
 	resolveLoader: {
     	moduleExtensions: ['*', '-loader']

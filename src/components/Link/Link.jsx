@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './Link.less';
+import '_styles/Link.less';
+
+const dictionary = {
+	email: 'mailto:',
+	phone: 'tel:'
+}
 
 class Link extends Component {
 	constructor(props) {
@@ -12,7 +17,10 @@ class Link extends Component {
 		return (
 			<div className="message-block__link">
 				<div className="message-block__link-image-block">
-					<a className="message-block__link-image" href={this.renderURL()} target="_blank">
+					<a  className="message-block__link-image" 
+						href={this.renderURL()} 
+						target={this.props.type === 'link' ? '_blank' : false}
+					>
 						{this.Image()}
 					</a>
 				</div>
@@ -35,7 +43,10 @@ class Link extends Component {
 		if (!this.props.url['href']) return '';
 
 		let props = Object.keys(this.props.url).filter((el) => el !== 'href');
-		let link = this.props.url['href'];
+
+		let link = this.props.type === 'link' 
+						? this.props.url['href'] 
+						: dictionary[this.props.type] + this.props.url['href'];
 
 		props.forEach((item) => {
 			link += this.props.url[item] ? `${item}=${this.textNotSpase(this.props.url[item])}\&` : '';
@@ -52,7 +63,8 @@ class Link extends Component {
 const propTypes = {
 	url: PropTypes.object,
 	title: PropTypes.string,
-	icon: PropTypes.string
+	icon: PropTypes.string,
+	type: PropTypes.oneOf(['email', 'phone', 'link'])
 }
 
 const defaultProps = {
@@ -60,7 +72,8 @@ const defaultProps = {
 	icon: '',
 	url: {
 		href: '#'
-	}
+	},
+	type: 'link'
 }
 
 Link.propTypes = propTypes;

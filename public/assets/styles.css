@@ -10,14 +10,21 @@
   flex-wrap: wrap;
   border-bottom: 1px solid #D1CFCF;
 }
+.message-block__link-image {
+  width: 70px;
+  height: 70px;
+  background-color: #DADADA;
+  border-radius: 50%;
+}
 .message-block__link-image-block {
   width: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #E7E7E7;
 }
 .message-block__link-logo {
-  width: 70px;
+  width: 100%;
 }
 .message-block__link-body {
   width: 200px;
@@ -27,6 +34,41 @@
   line-height: 90px;
   font-weight: 500;
   font-size: 20px;
+  text-align: center;
+}
+
+.react-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #F5F5F5;
+  border: 2px solid #D1CFCF;
+  cursor: pointer;
+  outline: none;
+  float: right;
+}
+.react-button__default-children {
+  width: 80%;
+  height: 2px;
+  background-color: #222;
+  display: block;
+  position: relative;
+  margin: auto;
+}
+.react-button__default-children::before,
+.react-button__default-children::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #222;
+}
+.react-button__default-children::before {
+  top: 10px;
+}
+.react-button__default-children::after {
+  bottom: 10px;
 }
 
 .message-block {
