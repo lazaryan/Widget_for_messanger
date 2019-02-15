@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 
-import '_styles/MessageLinks.less';
-
-import Link from '../Link';
+import Body from '_components/Body';
+import Link from '_components/Link';
 
 import logo_whatsApp from './icons/whatsapp.svg';
 import logo_facebook from './icons/messenger.svg';
 import logo_viber from './icons/viber.svg';
 import logo_email from './icons/message.svg';
 
-class MessageLinks extends Component {
+class Messangers extends Component {
 	render () {
 		return (
-			<div className="message-block__links">
+			<Body>
 				<Link 
 					url={{
 						href: 'https://api.whatsapp.com/send?',
@@ -36,6 +35,10 @@ class MessageLinks extends Component {
 					}}
 					title="Viber"
 					icon={logo_viber}
+					options={{
+						bth_link: false,
+						bth_qr: true
+					}}
 				/>
 				<Link 
 					url={{
@@ -44,10 +47,14 @@ class MessageLinks extends Component {
 					type="email"
 					title="Наша почта"
 					icon={logo_email}
+					options={{
+						bth_link: true,
+						bth_qr: false
+					}}
 				/>
-			</div>
+			</Body>
 		)
 	}
 }
 
-export default MessageLinks;
+export default Messangers;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import MessageLinks from '../MessageLinks';
-import Button from '../Button';
+import Messangers from '_components/Messangers';
+import Button from '_components/Button';
 
 import '_styles/App.less';
 
@@ -13,29 +13,24 @@ class App extends Component {
 		this.activeMenu = this.activeMenu.bind(this);
 
 		this.state = {
-			showLinks: false
+			showMessangers: false
 		}
 	}
 
 	render () {
 		return (
 			<div className="message-block">
-				{this.showMenu()}
-				<Button onClick={this.activeMenu} />
+				{ this.state.showMessangers ? <Messangers /> : null }
+
+				<button className="react-button" onClick={ this.activeMenu }>
+					<span className="react-button__burger"></span>
+				</button>
 			</div>
 		)
 	}
 
-	showMenu () {
-		if (!this.state.showLinks) return null;
-
-		return (
-			<MessageLinks />
-		)
-	}
-
 	activeMenu () {
-		this.setState({showLinks: !this.state.showLinks});
+		this.setState({showMessangers: !this.state.showMessangers});
 	}
 }
 

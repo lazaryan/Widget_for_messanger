@@ -61,7 +61,8 @@ module.exports = {
     	modules: ['node_modules', 'public'],
     	extensions: ['*', '.js', '.jsx'],
     	alias: {
-    		_styles: path.join(__dirname, 'src/styles')
+    		_styles: path.join(__dirname, 'src/styles'),
+    		_components: path.join(__dirname, 'src/components')
     	}
   	},
 	resolveLoader: {
