@@ -3,24 +3,26 @@ import PropTypes from 'prop-types';
 
 import Messangers from '_components/Messangers';
 import Button from '_components/Button';
+import QRLink from '_components/QRcode';
 
 import '_styles/App.less';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-
-		this.activeMenu = this.activeMenu.bind(this);
-
-		this.state = {
-			showMessangers: false
+	state = {
+		showMessangers: false,
+		showLinkMenu: false,
+		dataLinkMenu: {
+			url: '#',
+			qr_icon: ''
 		}
 	}
 
 	render () {
+		const {showMessangers, showLinkMenu, dataLinkMenu} = this.state;
 		return (
 			<div className="message-block">
-				{ this.state.showMessangers ? <Messangers /> : null }
+				{ showMessangers ? <Messangers showMenuLink={this.actioveLinkMenu}/> : null }
+				{ showLinkMenu ? <QRLink data={dataLinkMenu} close={this.closeMenus} /> : null }
 
 				<button className="react-button" onClick={ this.activeMenu }>
 					<span className="react-button__burger"></span>
@@ -29,8 +31,32 @@ class App extends Component {
 		)
 	}
 
-	activeMenu () {
-		this.setState({showMessangers: !this.state.showMessangers});
+	activeMenu = () => {
+		this.setState(({ showMessangers }) => ({
+			showMessangers: !showMessangers,
+			showLinkMenu: false
+		}))
+	}
+
+	actioveLinkMenu = ({url, qr_icon}) => {
+		this.setState({
+			dataLinkMenu: {
+				url,
+				qr_icon
+			}
+		})
+
+		this.setState({
+			showMessangers: false,
+			showLinkMenu: true
+		})
+	}
+
+	closeMenus = () => {
+		this.setState({
+			showMessangers: false,
+			showLinkMenu: false
+		})
 	}
 }
 

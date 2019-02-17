@@ -5,7 +5,6 @@
 		height: 90px;
 		display: flex;
 		flex-wrap: wrap;
-		border-bottom: 1px solid @border;
 		
 		&_action-block {
 			display: flex;
@@ -20,6 +19,9 @@
 		height: 70px;
 		background-color: #DADADA;
 		border-radius: 50%;
+		border: none;
+		outline: none;
+		cursor: pointer;
 	}
 
 	&__link-image-block {
@@ -35,7 +37,7 @@
 	}
 
 	&__link-body {
-		width: 200px;
+		width: @width;
 	}
 
 	&__link-title {
@@ -45,5 +47,6 @@
 		font-size: 20px;
 		text-align: center;
 		margin-bottom: 20px;
+		line-height: 70px;
 	}
 }

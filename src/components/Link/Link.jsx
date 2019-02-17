@@ -11,42 +11,35 @@ const dictionary = {
 }
 
 class Link extends Component {
-	constructor(props) {
-		super(props);
-
-		this.toLink = this.toLink.bind(this);
-	}
-
 	render () {
 		return (
 			<div className="message-block__link">
 				<div className="message-block__link-image-block">
-					<div  className="message-block__link-image">
+					<button  
+						className="message-block__link-image"
+						onClick={this.toLink}
+					>
 						{ this.Image() }
-					</div>
+					</button>
 				</div>
 				<div className="message-block__link-body">
 					<p className="message-block__link-title">{ this.props.title }</p>
-					<div className="message-block__link_action-block">
-						{ this.props.options['bth_link'] ? <Button onClick={this.toLink}>Перейти</Button> : null }
-						{ this.props.options['bth_qr'] ? <Button >QR код</Button> : null}
-					</div>
 				</div>
 			</div>
 		)
 	}
 
-	toLink () {
+	toLink = () => {
 		let target = this.props.type === 'link' ? '_blank' : false;
 
 		if (target) {
-			window.open(this.renderURL(), '_blank');
+			this.showActionMenu();
 		} else {
 			document.location.href = this.renderURL();
 		}
 	}
 
-	Image () {
+	Image = () => {
 		if (!this.props.icon) return null;
 
 		return (
@@ -54,7 +47,7 @@ class Link extends Component {
 		)
 	}
 
-	renderURL () {
+	renderURL = () => {
 		if (!this.props.url['href']) return '';
 
 		let props = Object.keys(this.props.url).filter((el) => el !== 'href');
@@ -70,8 +63,15 @@ class Link extends Component {
 		return link;
 	}
 
-	textNotSpase (text = '') {
+	textNotSpase = (text = '') => {
 		return text.replace(/[\s\uFEFF\xA0]/g, '%20');
+	}
+
+	showActionMenu = () => {
+		this.props.showActionMenu({
+			url: this.renderURL(),
+			qr_icon: this.props.qr_icon
+		})
 	}
 }
 
@@ -79,8 +79,7 @@ const propTypes = {
 	url: PropTypes.object,
 	title: PropTypes.string,
 	icon: PropTypes.string,
-	type: PropTypes.oneOf(['email', 'phone', 'link']),
-	options: PropTypes.object
+	type: PropTypes.oneOf(['email', 'phone', 'link'])
 }
 
 const defaultProps = {
@@ -90,10 +89,6 @@ const defaultProps = {
 		href: '#'
 	},
 	type: 'link',
-	options: {
-		bth_link: true,
-		bth_qr: true
-	}
 }
 
 Link.propTypes = propTypes;

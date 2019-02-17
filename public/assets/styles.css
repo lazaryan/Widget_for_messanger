@@ -8,7 +8,6 @@
   height: 90px;
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid #D1CFCF;
 }
 .message-block__link_action-block {
   display: flex;
@@ -21,6 +20,9 @@
   height: 70px;
   background-color: #DADADA;
   border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 .message-block__link-image-block {
   width: 80px;
@@ -33,7 +35,7 @@
   width: 100%;
 }
 .message-block__link-body {
-  width: 200px;
+  width: 250px;
 }
 .message-block__link-title {
   margin: 0;
@@ -42,6 +44,7 @@
   font-size: 20px;
   text-align: center;
   margin-bottom: 20px;
+  line-height: 70px;
 }
 
 .react-action {
@@ -57,6 +60,24 @@
 .react-action:hover {
   background-color: #7CAFF7;
   border: 2px solid #919191;
+}
+
+.react__qr_header {
+  width: 250px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.react__qr_image-block {
+  width: 250px;
+  padding: 20px 0;
+}
+.react__qr_image-block_wrapper {
+  border: 10px solid #D1CFCF;
+}
+.react__qr_image {
+  width: 100%;
 }
 
 .message-block {

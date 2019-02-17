@@ -1,0 +1,26 @@
+@import (less) './variable';
+
+.react {
+	&__qr {
+		&_header {
+			width: @width;
+			height: 70px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		&_image-block {
+			width: @width;
+			padding: 20px 0;
+			
+			&_wrapper {
+				border: 10px solid @border;
+			}
+		}
+
+		&_image {
+			width: 100%;
+		}
+	}
+}
