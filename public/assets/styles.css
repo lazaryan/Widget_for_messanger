@@ -80,6 +80,69 @@
   width: 100%;
 }
 
+.react__chat__header {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #D1CFCF;
+}
+.react__chat__header_logo {
+  width: 80px;
+  padding: 10px;
+}
+.react__chat__header_title {
+  width: 200px;
+}
+.react__chat__header_title-text {
+  margin: 0;
+  text-align: center;
+  line-height: 80px;
+  font-size: 25px;
+}
+.react__chat__body {
+  width: 100%;
+  max-height: 300px;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  overflow: auto;
+}
+.react__chat__messages {
+  width: 100%;
+  background-color: #DADADA;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0;
+}
+.react__chat__messages_textarea {
+  width: 80%;
+  height: 70px;
+  resize: none;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.react__chat__message {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+}
+.react__chat__message_left {
+  justify-content: flex-start;
+}
+.react__chat__message_right {
+  justify-content: flex-end;
+}
+.react__chat__message_text {
+  max-width: 200px;
+  background-color: #88ADE9;
+  padding: 5px 7px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  word-break: break-all;
+}
+
 .message-block {
   position: fixed;
   right: 100px;
