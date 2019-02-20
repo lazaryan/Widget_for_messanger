@@ -6,6 +6,13 @@
 	
 	&__body {
 		background-color: #FFF;
-		padding: 10px;
+		position: relative;
+		height: 0;
+		transition: .7s;
+		
+		&_active {
+			height: 300px;
+			padding-top: 40px;
+		}
 	}
 }

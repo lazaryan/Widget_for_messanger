@@ -1,0 +1,35 @@
+.r-chat {
+	&__user-form {
+		position: absolute;
+		width: 100%;
+		top: 0;
+		
+		&_body {
+			transition: .5s;
+			transform-origin: top center;
+			overflow: hidden;
+			height: 0;
+			
+			&_active {
+				height: 100px;
+				background-color: #E9E9E9;
+			}
+		}
+		
+		&_footer {
+			height: 30px;
+			background-color: #507BF7;
+			line-height: 30px;
+			text-align: center;
+			border-radius: 0 0 15px 15px;
+			cursor: pointer;
+			border: 2px solid #222;
+			color: #fff;
+			font-size: 15px;
+		}
+	}
+}
+
+.test {
+	height: 100px;
+}

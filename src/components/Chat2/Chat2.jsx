@@ -1,29 +1,39 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import Header from './components/Header';
 import UserForm from './components/UserForm';
+import Chat from './components/Chat';
 
 import './Chat2.less';
 
 class Chat2 extends Component {
     state = {
-        action: false
+        action: false,
+        userForm: {
+            name: '',
+            phone: ''
+        },
+        chat: []
     }
 
     render () {
-        const {action} = this.state;
+        const {action, userForm, chat} = this.state;
 
         return (
             <div className="r-chat">
-                <Header activeChat={this.activeChat}
+                <Header
+                    activeChat={this.activeChat}
                     disactiveChat={this.disactiveChat}
                     action={action}
                 />
-                {!action ? null :
-                    <div className="r-chat__body">
-                        <UserForm />
-                    </div>
-                }
+                <div className={`r-chat__body ${action ? 'r-chat__body_active' : ''}`}>
+                    {!action ? null :
+                        <Fragment>
+                            <UserForm changeUserInfo={this.changeUserInfo} data={userForm}/>
+                            <Chat chat={chat} addMessage={this.addMessage}/>
+                        </Fragment>
+                    }
+                </div>
             </div>
         );
     }
@@ -41,6 +51,24 @@ class Chat2 extends Component {
     disactiveChat = () => {
         this.setState({
             action: false
+        });
+    }
+
+    changeUserInfo = ({target: {name, value}}) => {
+        this.setState(({userForm}) => ({
+            userForm: {
+                ...userForm,
+                [name]: value
+            }
+        }));
+    }
+
+    addMessage = message => {
+        const {chat} = this.state;
+        chat.push(message);
+
+        this.setState({
+            chat: chat
         });
     }
 }
