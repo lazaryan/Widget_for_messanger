@@ -8,7 +8,7 @@ import './Chat2.less';
 
 class Chat2 extends Component {
     state = {
-        action: false,
+        action: true,
         userForm: {
             name: '',
             phone: ''

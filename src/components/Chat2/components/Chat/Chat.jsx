@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+
+import Form from './components/Form';
 
 import './Chat.less';
 
 const defaultMessage = [
-    'Здравствуйте',
-    'Я могу вам помочь?'
+    {to: 'robot', text: 'Здравствуйте'},
+    {to: 'robot', text: 'Я могу вам помочь?'}
 ];
 
 class Chat extends Component {
@@ -24,11 +26,25 @@ class Chat extends Component {
         const {chat} = this.state;
 
         return (
-            <div className="r-chat__chat-body">
-                {chat.map((item, index) =>
-                    <div key={index}>{item}</div>
-                )}
-            </div>
+            <Fragment>
+                <div className="r-chat__chat-body">
+                    {chat.map(({to, text}, index) =>
+                        <div
+                            key={index}
+                            className={`r-chat__message-block ${to !== 'user'
+                                ? 'r-chat__message_left'
+                                : 'r-chat__message_right'}`}
+                        >
+                            <div className="r-chat__message">
+                                {text}
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <Form
+                    sendMessage={this.addMessage}
+                />
+            </Fragment>
         );
     }
 
