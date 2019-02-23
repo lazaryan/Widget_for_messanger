@@ -296,6 +296,23 @@
   justify-content: flex-end;
 }
 
+.r-chat__error-block {
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+.r-chat__error-block_header {
+  margin-bottom: 20px;
+}
+.r-chat__error-block_title {
+  text-align: center;
+  font-size: 22px;
+}
+.r-chat__error-block_text {
+  text-align: center;
+  font-size: 15px;
+}
+
+
 .r-chat {
   position: fixed;
   bottom: 0;
