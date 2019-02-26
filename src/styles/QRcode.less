@@ -1,25 +1,77 @@
 @import (less) './variable';
 
-.react {
-	&__qr {
+.r-chat {
+	&__link-menu {
+		height: 400px;
+		padding: 10px;
+		box-sizing: border-box;
+		
 		&_header {
-			width: @width;
-			height: 70px;
 			display: flex;
-			justify-content: center;
-			align-items: center;
+			justify-content: flex-end;
+			margin-bottom: 10px;
 		}
 
-		&_image-block {
-			width: @width;
-			padding: 20px 0;
+		&_close {
+			width: 30px;
+			height: 30px;
+			border: 2px solid #222;
+			outline: none;
+			border-radius: 50%;
+			transition: .5s;
+			padding: 0;
+			margin: 0;
+			cursor: pointer;
 			
-			&_wrapper {
-				border: 10px solid @border;
+			&:hover {
+				border: 2px solid #82E6FF;
 			}
 		}
 
-		&_image {
+		&_close:hover &_close-line,
+		&_close:hover &_close-line::before {
+			background-color: #82E6FF;
+		}
+
+		&_close-line {
+			width: 80%;
+			margin: auto;
+			height: 2px;
+			background-color: #222;
+			display: block;
+			transform: rotate(45deg);
+			transition: .5s;
+			
+			&::before {
+				content: '';
+				display: block;
+				height: 2px;
+				background-color: #222;
+				transform: rotate(90deg);
+				transition: .5s;
+			}
+		}
+
+		&_action-block {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 10px;
+		}
+
+		&_action {
+			display: block;
+			text-decoration: none;
+			background-color: #60A9FB;
+			padding: 3px 10px;
+			border-radius: 5px;
+		}
+
+		&_qr-code {
+			width: 80%;
+			margin: auto;
+		}
+
+		&_qr-code-image {
 			width: 100%;
 		}
 	}

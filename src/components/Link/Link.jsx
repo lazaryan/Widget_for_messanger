@@ -35,6 +35,7 @@ class Link extends Component {
         if (target) {
             this.showActionMenu();
         } else {
+            console.log('tyt');
             document.location.href = this.renderURL();
         }
     }
@@ -52,7 +53,7 @@ class Link extends Component {
     renderURL = () => {
         const {type, url} = this.props;
 
-        if (!href) {
+        if (!url.href) {
             return '';
         }
 

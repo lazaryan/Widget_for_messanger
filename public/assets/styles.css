@@ -61,21 +61,68 @@
   border: 2px solid #919191;
 }
 
-.react__qr_header {
-  width: 250px;
-  height: 70px;
+.r-chat__link-menu {
+  height: 400px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.r-chat__link-menu_header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.r-chat__link-menu_close {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #222;
+  outline: none;
+  border-radius: 50%;
+  transition: 0.5s;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.r-chat__link-menu_close:hover {
+  border: 2px solid #82E6FF;
+}
+.r-chat__link-menu_close:hover .r-chat__link-menu_close-line,
+.r-chat__link-menu_close:hover .r-chat__link-menu_close-line::before {
+  background-color: #82E6FF;
+}
+.r-chat__link-menu_close-line {
+  width: 80%;
+  margin: auto;
+  height: 2px;
+  background-color: #222;
+  display: block;
+  transform: rotate(45deg);
+  transition: 0.5s;
+}
+.r-chat__link-menu_close-line::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background-color: #222;
+  transform: rotate(90deg);
+  transition: 0.5s;
+}
+.r-chat__link-menu_action-block {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-bottom: 10px;
 }
-.react__qr_image-block {
-  width: 250px;
-  padding: 20px 0;
+.r-chat__link-menu_action {
+  display: block;
+  text-decoration: none;
+  background-color: #60A9FB;
+  padding: 3px 10px;
+  border-radius: 5px;
 }
-.react__qr_image-block_wrapper {
-  border: 10px solid #D1CFCF;
+.r-chat__link-menu_qr-code {
+  width: 80%;
+  margin: auto;
 }
-.react__qr_image {
+.r-chat__link-menu_qr-code-image {
   width: 100%;
 }
 
@@ -271,7 +318,7 @@
 }
 
 .r-chat__chat-body {
-  height: 220px;
+  height: 320px;
   box-sizing: border-box;
   padding: 10px;
   overflow: auto;
@@ -306,6 +353,8 @@
 .r-chat__error-block_title {
   text-align: center;
   font-size: 22px;
+  margin: 0;
+  line-height: 40px;
 }
 .r-chat__error-block_text {
   text-align: center;
@@ -326,7 +375,9 @@
   transition: 0.7s height;
 }
 .r-chat__body_active {
-  height: 300px;
+  height: 400px;
+}
+.r-chat__body_active_padding {
   padding-top: 40px;
 }
 

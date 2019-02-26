@@ -5,12 +5,13 @@ import UserForm from './components/UserForm';
 import Chat from './components/Chat';
 import ErrorBlock from './components/ErrorBlock';
 import Messangers from './components/Messangers';
+import QRcode from '_components/QRcode';
 
 import './Chat2.less';
 
 class Chat2 extends Component {
     state = {
-        action: true,
+        action: false,
         error: false,
         messangers: false,
         userForm: {
@@ -18,11 +19,20 @@ class Chat2 extends Component {
             phone: ''
         },
         chat: [],
-        diary: []
+        diary: {
+            Hello: 'Hi!'
+        },
+        dataLinkMenu: {
+            url: '#',
+            qr_icon: '',
+            action: false
+        }
     }
 
     render () {
         const {action, userForm, chat, error, messangers} = this.state;
+        const actionDataLink = this.state.dataLinkMenu.action;
+        const {dataLinkMenu: {url, qr_icon}} = this.state;
 
         return (
             <div className="r-chat">
@@ -31,20 +41,29 @@ class Chat2 extends Component {
                     disactiveChat={this.disactiveChat}
                     action={action}
                 />
-                <div className={`r-chat__body ${action ? 'r-chat__body_active' : ''}`}>
+                <div className={`r-chat__body
+                    ${action ? 'r-chat__body_active' : ''}
+                    ${action && !error ? 'r-chat__body_active_padding' : ''}`}
+                >
                     {!action || error ? null :
                         <Fragment>
                             <UserForm changeUserInfo={this.changeUserInfo} data={userForm}/>
                             <Chat chat={chat} addMessage={this.addMessage}/>
                         </Fragment>
                     }
-                    {!action && !error || messangers ? null :
+                    {!action || !error || messangers ? null :
                         <ErrorBlock
                             activeMessangers={this.activeMessangers}
                         />
                     }
-                    {!messangers ? null :
-                        <Messangers />
+                    {!action || !messangers || actionDataLink ? null :
+                        <Messangers showMenuLink={this.showMenuLink} />
+                    }
+                    {!action || !messangers || !actionDataLink ? null :
+                        <QRcode
+                            data={{url, qr_icon}}
+                            close={this.closeMenuLink}
+                        />
                     }
                 </div>
             </div>
@@ -85,7 +104,7 @@ class Chat2 extends Component {
         });
 
         if (message.to !== 'robot') {
-            this.sendReply(message);
+            this.sendReply(message.text);
         }
     }
 
@@ -109,6 +128,28 @@ class Chat2 extends Component {
         this.setState({
             messangers: true
         });
+    }
+
+    showMenuLink = ({url, qr_icon}) => {
+        this.setState(PrevState => ({
+            ...PrevState,
+            dataLinkMenu: {
+                url,
+                qr_icon,
+                action: true
+            }
+        }));
+    }
+
+    closeMenuLink = () => {
+        this.setState(prevState => ({
+            ...prevState,
+            dataLinkMenu: {
+                url: '#',
+                qr_icon: '',
+                action: false
+            }
+        }));
     }
 }
 

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import Body from '_components/Body';
 import Button from '_components/Button';
 
 import '_styles/QRcode.less';
@@ -11,22 +10,28 @@ class QRcode extends Component {
         const {close} = this.props;
 
         return (
-            <Body>
-                <header className="react__qr_header">
-                    <a
-                        href={url}
-                        target='_blank'
+            <div className="r-chat__link-menu">
+                <header className="r-chat__link-menu_header">
+                    <button
+                        className="r-chat__link-menu_close"
                         onClick={close}
                     >
-                        <Button>Перейти</Button>
-                    </a>
+                        <span className="r-chat__link-menu_close-line"></span>
+                    </button>
                 </header>
-                <div className="react__qr_image-block">
-                    <div className="react__qr_image-block_wrapper">
-                        <img src={qr_icon} className="react__qr_image"/>
-                    </div>
+                <div className="r-chat__link-menu_action-block">
+                    <a
+                        href={url}
+                        target="_blank"
+                        className="r-chat__link-menu_action"
+                    >
+                        Перейти
+                    </a>
                 </div>
-            </Body>
+                <div className="r-chat__link-menu_qr-code">
+                    <img src={qr_icon} className="r-chat__link-menu_qr-code-image"/>
+                </div>
+            </div>
         );
     }
 }
