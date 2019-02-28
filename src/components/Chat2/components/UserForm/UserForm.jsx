@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 import Input from '_components/Input';
 
@@ -10,8 +11,14 @@ const listInputs = [
 ];
 
 class UserForm extends Component {
-    state = {
-        action: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            action: false,
+            name: this.props.data.name,
+            phone: this.props.data.phone
+        };
     }
 
     render () {
@@ -28,12 +35,12 @@ class UserForm extends Component {
                         <Input key={`${name}-${index}`}
                             name={name}
                             title={title}
-                            onChange={changeUserInfo}
+                            onChange={this.changeInfo}
                             value={data}
                         />
                     )}
                 </div>
-                <div className="r-chat__user-form_footer">Отправить на почту</div>
+                <div className="r-chat__user-form_footer" onClick={this.handleSubmit}>Отправить на почту</div>
             </div>
         );
     }
@@ -42,6 +49,33 @@ class UserForm extends Component {
         this.setState({
             action: state
         });
+    }
+
+    changeInfo = e => {
+        const {changeUserInfo} = this.props;
+
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+
+        changeUserInfo(e);
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        console.log(this.state);
+
+        axios.post('./mail.php', {
+            name: this.state.name,
+            email: this.state.email
+        })
+            .then(res => {
+                console.log('Send');
+            })
+            .catch(error => {
+                console.warn(error);
+            });
     }
 }
 

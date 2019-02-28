@@ -116,10 +116,18 @@ class Chat2 extends Component {
     sendReply = message => {
         const {diary} = this.state;
 
-        if (diary[message]) {
-            this.addMessage({to: 'robot', text: diary[message]});
-        } else {
+        const key = this.getMessage(message);
+
+        console.log(diary[key] instanceof Array);
+
+        if (!key) {
             this.notReply();
+        } else if (diary[key] instanceof Array) {
+            diary[key].forEach(el => {
+                this.addMessage({to: 'robot', text: el});
+            });
+        } else {
+            this.addMessage({to: 'robot', text: diary[key]});
         }
     }
 
@@ -167,6 +175,36 @@ class Chat2 extends Component {
             .catch(error => {
                 console.warn(error);
             });
+    }
+
+    getMessage = message => {
+        const {diary} = this.state;
+        const words = message.toLowerCase().split(' ');
+        let res = {
+            count: 0,
+            key: ''
+        };
+
+        const keys = Object.keys(diary);
+        keys.forEach(el => {
+            const text = el.toLowerCase().split(' ');
+            let count = 0;
+
+            words.forEach(word => {
+                if (text.some(w => w === word)) {
+                    count++;
+                }
+            });
+
+            if (count > res.count) {
+                res = {
+                    count: count,
+                    key: el
+                };
+            }
+        });
+
+        return res.key;
     }
 }
 
