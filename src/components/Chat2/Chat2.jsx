@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import axios from 'axios';
 
 import Header from './components/Header';
 import UserForm from './components/UserForm';
@@ -10,23 +11,27 @@ import QRcode from '_components/QRcode';
 import './Chat2.less';
 
 class Chat2 extends Component {
-    state = {
-        action: false,
-        error: false,
-        messangers: false,
-        userForm: {
-            name: '',
-            phone: ''
-        },
-        chat: [],
-        diary: {
-            Hello: 'Hi!'
-        },
-        dataLinkMenu: {
-            url: '#',
-            qr_icon: '',
-            action: false
-        }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            action: false,
+            error: false,
+            messangers: false,
+            userForm: {
+                name: '',
+                phone: ''
+            },
+            chat: [],
+            diary: {},
+            dataLinkMenu: {
+                url: '#',
+                qr_icon: '',
+                action: false
+            }
+        };
+
+        this.getDiary();
     }
 
     render () {
@@ -150,6 +155,18 @@ class Chat2 extends Component {
                 action: false
             }
         }));
+    }
+
+    getDiary = () => {
+        axios.get('./diary.json')
+            .then(({data}) => {
+                this.setState({
+                    diary: data
+                });
+            })
+            .catch(error => {
+                console.warn(error);
+            });
     }
 }
 
