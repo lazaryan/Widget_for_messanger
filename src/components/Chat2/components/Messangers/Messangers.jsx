@@ -18,10 +18,19 @@ const propTypes = {
 
 class Messangers extends Component {
     render () {
-        const {showMenuLink} = this.props;
+        const {showMenuLink, close} = this.props;
 
         return (
-            <div>
+            <div className="r-chat__list-messangers">
+                <header className="r-chat__list-messangers_header">
+                    <h2 className="r-chat__list-messangers_title">Выберите мессенджер</h2>
+                    <button
+                        className="r-chat__user-form_close"
+                        onClick={close}
+                    >
+                        <span className="r-chat__user-form_close-line"></span>
+                    </button>
+                </header>
                 <Link
                     url={{
                         href: 'https://api.whatsapp.com/send?',

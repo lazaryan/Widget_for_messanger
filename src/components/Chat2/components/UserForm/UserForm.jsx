@@ -2,18 +2,17 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import Input from '_components/Input';
+import Input from './components/Input';
+import Textarea from './components/Textarea';
+import Button from '_components/Button';
 
 import './UserForm.less';
-
-const listInputs = [
-    {name: 'name', title: 'Введите имя'},
-    {name: 'phone', title: 'Введите телефон'}
-];
 
 const propTypes = {
     name: PropTypes.string,
     phone: PropTypes.string,
+    email: PropTypes.string,
+    message: PropTypes.string,
     changeUserInfo: PropTypes.func,
     data: PropTypes.object
 };
@@ -31,32 +30,47 @@ class UserForm extends Component {
 
     render () {
         const {action} = this.state;
-        const {changeUserInfo, data} = this.props;
+        const {changeUserInfo, data, close} = this.props;
 
         return (
-            <div className="r-chat__user-form"
-                onMouseEnter={() => this.changeStatusForm(true)}
-                onMouseLeave={() => this.changeStatusForm(false)}
-            >
-                <div className={`r-chat__user-form_body ${action ? 'r-chat__user-form_body_active' : ''}`}>
-                    {listInputs.map(({name, title}, index) =>
-                        <Input key={`${name}-${index}`}
-                            name={name}
-                            title={title}
-                            onChange={this.changeInfo}
-                            value={data}
-                        />
-                    )}
+            <div className="r-chat__user-form">
+                <h2 className="r-chat__user-form_title">Введите данные</h2>
+                <button
+                    className="r-chat__user-form_close"
+                    onClick={close}
+                >
+                    <span className="r-chat__user-form_close-line"></span>
+                </button>
+                <div className="r-chat__user-form_body">
+                    <Input
+                        name="name"
+                        title="Введите ваше имя"
+                        onChange={this.changeInfo}
+                        value={data.name || ''}
+                    />
+                    <Input
+                        name="email"
+                        title="Введите почту"
+                        onChange={this.changeInfo}
+                        value={data.email || ''}
+                    />
+                    <Input
+                        name="phone"
+                        title="Введите телефон"
+                        onChange={this.changeInfo}
+                        value={data.phone || ''}
+                    />
+                    <Textarea
+                        className="r-chat__user-form_message"
+                        name="message"
+                        placeholder="Введите сообщение"
+                        onChange={this.changeInfo}
+                        value={data.message || ''}
+                    />
                 </div>
-                <div className="r-chat__user-form_footer" onClick={this.handleSubmit}>Отправить на почту</div>
+                <Button onClick={this.handleSubmit}>Отправить</Button>
             </div>
         );
-    }
-
-    changeStatusForm = state => {
-        this.setState({
-            action: state
-        });
     }
 
     changeInfo = e => {
@@ -74,7 +88,9 @@ class UserForm extends Component {
 
         axios.post('./mail.php', {
             name: this.state.name,
-            email: this.state.email
+            email: this.state.email,
+            phone: this.state.phone,
+            message: this.state.message
         })
             .then(res => {
                 console.log('Send');

@@ -6,12 +6,13 @@ import Button from '_components/Button';
 import './ErrorBlock.less';
 
 const propTypes = {
-    activeMessangers: PropTypes.func
+    activeMessangers: PropTypes.func,
+    activeUserForm: PropTypes.func
 };
 
 class ErrorBlock extends Component {
     render () {
-        const {activeMessangers} = this.props;
+        const {activeMessangers, activeUserForm} = this.props;
 
         return (
             <div className="r-chat__error-block">
@@ -23,8 +24,8 @@ class ErrorBlock extends Component {
                         Выбирете один из вариантов отправки сообщения:
                     </p>
                 </div>
-                <Button onClick={activeMessangers}>Мессенджер</Button>
-                <Button >Почта</Button>
+                <Button onClick={activeUserForm}>Написать на почту</Button>
+                <Button onClick={activeMessangers}>Перейти в мессенджер</Button>
             </div>
         );
     }

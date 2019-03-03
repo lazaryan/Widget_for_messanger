@@ -1,35 +1,62 @@
 .r-chat {
 	&__user-form {
-		position: absolute;
+		position: relative;
 		width: 100%;
-		top: 0;
 		
-		&_body {
+		&_title {
+			text-align: center;
+			font-size: 23px;
+			margin: 0;
+			line-height: 35px;
+			padding-top: 20px;
+		}
+
+		&_message {
+			resize: none;
+			margin: auto;
+		}
+
+		&_close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			width: 30px;
+			height: 30px;
+			border: 2px solid #222;
+			background-color: transparent;
+			border-radius: none;
+			outline: none;
+			cursor: pointer;
+			border-radius: 50%;
 			transition: .5s;
-			transform-origin: top center;
-			overflow: hidden;
-			height: 0;
 			
-			&_active {
-				height: 100px;
-				background-color: #E9E9E9;
+			&:hover {
+				border: 2px solid #82E6FF;
 			}
 		}
-		
-		&_footer {
-			height: 30px;
-			background-color: #507BF7;
-			line-height: 30px;
-			text-align: center;
-			border-radius: 0 0 15px 15px;
-			cursor: pointer;
-			border: 2px solid #222;
-			color: #fff;
-			font-size: 15px;
+
+		&_close:hover &_close-line,
+		&_close:hover &_close-line::before {
+			background-color: #82E6FF;
+		}
+
+		&_close-line {
+			width: 100%;
+			margin: auto;
+			height: 2px;
+			background-color: #222;
+			display: block;
+			transform: rotate(45deg);
+			transition: .5s;
+			
+			&::before {
+				content: '';
+				display: block;
+				height: 2px;
+				background-color: #222;
+				transform: rotate(90deg);
+				transition: .5s;
+			}
 		}
 	}
-}
-
-.test {
-	height: 100px;
 }

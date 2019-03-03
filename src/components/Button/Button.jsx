@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import '_styles/Button.less';
+import './Button.less';
 
 class Button extends Component {
     render () {
+        const {onClick, children} = this.props;
+
         return (
-            <button className="react-action" onClick={this.props.onClick}>
-                {this.props.children || 'Done'}
-            </button>
+            <div className="r-chat__button-block">
+                <button className="r-chat__button" onClick={onClick}>
+                    {children || 'Done'}
+                </button>
+            </div>
         );
     }
 }

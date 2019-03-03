@@ -25,8 +25,7 @@ let plugins = [
     }),
     new MiniCssExtractPlugin({
         filename: cssName
-    }),
-    new HardSourceWebpackPlugin()
+    })
 ];
 
 let optimization = {};
@@ -40,6 +39,7 @@ if (!isDevelopment) {
         })
     );
     plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+    plugins.push(new HardSourceWebpackPlugin());
 
     optimization['minimizer'] = [
         new UglifyJsPlugin({

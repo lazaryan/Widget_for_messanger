@@ -13,7 +13,7 @@ class Input extends Component {
                     placeholder={title}
                     name={name}
                     onChange={onChange}
-                    value={value[name]}
+                    value={value}
                 />
             </div>
         );

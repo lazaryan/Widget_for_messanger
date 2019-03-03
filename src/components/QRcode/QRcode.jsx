@@ -19,17 +19,17 @@ class QRcode extends Component {
                         <span className="r-chat__link-menu_close-line"></span>
                     </button>
                 </header>
+                <div className="r-chat__link-menu_qr-code">
+                    <img src={qr_icon} className="r-chat__link-menu_qr-code-image"/>
+                </div>
                 <div className="r-chat__link-menu_action-block">
                     <a
                         href={url}
                         target="_blank"
-                        className="r-chat__link-menu_action"
+                        style={{textDecoration: 'none'}}
                     >
-                        Перейти
+                        <Button>Перейти</Button>
                     </a>
-                </div>
-                <div className="r-chat__link-menu_qr-code">
-                    <img src={qr_icon} className="r-chat__link-menu_qr-code-image"/>
                 </div>
             </div>
         );

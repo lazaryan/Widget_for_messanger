@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 
 import Header from './components/Header';
@@ -20,7 +20,10 @@ class Chat2 extends Component {
             messangers: false,
             userForm: {
                 name: '',
-                phone: ''
+                email: '',
+                message: '',
+                phone: '',
+                action: false
             },
             chat: [],
             diary: {},
@@ -37,6 +40,7 @@ class Chat2 extends Component {
     render () {
         const {action, userForm, chat, error, messangers} = this.state;
         const actionDataLink = this.state.dataLinkMenu.action;
+        const actionUserForm = this.state.userForm.action;
         const {dataLinkMenu: {url, qr_icon}} = this.state;
 
         return (
@@ -51,23 +55,31 @@ class Chat2 extends Component {
                     ${action && !error ? 'r-chat__body_active_padding' : ''}`}
                 >
                     {!action || error ? null :
-                        <Fragment>
-                            <UserForm changeUserInfo={this.changeUserInfo} data={userForm}/>
-                            <Chat chat={chat} addMessage={this.addMessage}/>
-                        </Fragment>
+                        <Chat chat={chat} addMessage={this.addMessage}/>
                     }
-                    {!action || !error || messangers ? null :
+                    {!action || !error || messangers || actionUserForm ? null :
                         <ErrorBlock
                             activeMessangers={this.activeMessangers}
+                            activeUserForm={this.activeUserForm}
                         />
                     }
                     {!action || !messangers || actionDataLink ? null :
-                        <Messangers showMenuLink={this.showMenuLink} />
+                        <Messangers
+                            showMenuLink={this.showMenuLink}
+                            close={this.closeMenuMessangers}
+                        />
                     }
                     {!action || !messangers || !actionDataLink ? null :
                         <QRcode
                             data={{url, qr_icon}}
                             close={this.closeMenuLink}
+                        />
+                    }
+                    {!action || !actionUserForm ? null :
+                        <UserForm
+                            changeUserInfo={this.changeUserInfo}
+                            data={userForm}
+                            close={this.closeUserForm}
                         />
                     }
                 </div>
@@ -140,6 +152,34 @@ class Chat2 extends Component {
     activeMessangers = () => {
         this.setState({
             messangers: true
+        });
+    }
+
+    closeMenuMessangers = () => {
+        this.setState({
+            messangers: false
+        });
+    }
+
+    activeUserForm = () => {
+        const {userForm} = this.props;
+
+        this.setState({
+            userForm: {
+                ...userForm,
+                action: true
+            }
+        });
+    }
+
+    closeUserForm = () => {
+        const {userForm} = this.props;
+
+        this.setState({
+            userForm: {
+                ...userForm,
+                action: false
+            }
         });
     }
 
