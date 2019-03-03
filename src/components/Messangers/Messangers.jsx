@@ -18,8 +18,7 @@ class Messangers extends Component {
                 <Link
                     url={{
                         href: 'https://api.whatsapp.com/send?',
-                        phone: '89185966155',
-                        text: 'test text'
+                        phone: '84991120113'
                     }}
                     title="WhatsApp"
                     icon={logo_whatsApp}
@@ -28,7 +27,7 @@ class Messangers extends Component {
                 />
                 <Link
                     url={{
-                        href: 'http://m.me/100005528415912?'
+                        href: 'https://www.facebook.com/hprosmen.ru/'
                     }}
                     title="Messanger"
                     icon={logo_facebook}
@@ -37,7 +36,7 @@ class Messangers extends Component {
                 />
                 <Link
                     url={{
-                        href: 'lazaryan99@mail.ru'
+                        href: 'hprosmen@mail.ru'
                     }}
                     type="email"
                     title="Наша почта"

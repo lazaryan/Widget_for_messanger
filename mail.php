@@ -15,8 +15,8 @@ $email = trim($email);
 $phone = trim($phone);
 $message = trim($message);
 
-$to = 'lazaryan99@mail.ru';
-$from = 'lazaryan99@mail.ru';
+$to = 'hprosmen@mail.ru';
+$from = 'hprosmen@mail.ru';
 $title = 'Chat-bot';
 $mess = 'Имя пользователя: ' . $name . '<br />';
 $mess .= 'Почта пользователя: ' . $email  . '<br />';
