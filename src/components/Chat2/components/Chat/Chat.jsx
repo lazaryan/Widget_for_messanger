@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import PropTypes from 'prop-types';
 
 import Form from './components/Form';
 
@@ -8,6 +9,11 @@ const defaultMessage = [
     {to: 'robot', text: 'Здравствуйте'},
     {to: 'robot', text: 'Я могу вам помочь?'}
 ];
+
+const propTypes = {
+    chat: PropTypes.array,
+    addMessage: PropTypes.func
+};
 
 class Chat extends Component {
     constructor (props) {
@@ -80,5 +86,7 @@ class Chat extends Component {
         el.scrollTop = el.scrollHeight;
     }
 }
+
+Chat.propTypes = propTypes;
 
 export default Chat;

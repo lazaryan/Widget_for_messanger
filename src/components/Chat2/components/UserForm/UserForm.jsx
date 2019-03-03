@@ -72,8 +72,6 @@ class UserForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        console.log(this.state);
-
         axios.post('./mail.php', {
             name: this.state.name,
             email: this.state.email

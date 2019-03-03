@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import './Form.less';
 import iconArrow from './icons/up-arrow.svg';
 
 const defaultPlaceHolder = 'Введите сообщение';
+
+const propTypes = {
+    sendMessage: PropTypes.func
+};
 
 class Form extends Component {
     state = {
@@ -71,5 +76,7 @@ class Form extends Component {
         }
     }
 }
+
+Form.propTypes = propTypes;
 
 export default Form;

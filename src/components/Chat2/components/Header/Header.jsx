@@ -1,8 +1,15 @@
 import React, {Component, Fragment} from 'react';
+import PropTypes from 'prop-types';
 
 import './Header.less';
 
 const defaultText = 'Есть вопросы? Задавайте!';
+
+const propTypes = {
+    action: PropTypes.bool,
+    activeChat: PropTypes.func,
+    disactiveChat: PropTypes.func
+};
 
 class Header extends Component {
     render () {
@@ -36,5 +43,7 @@ class Header extends Component {
         );
     }
 }
+
+Header.propTypes = propTypes;
 
 export default Header;

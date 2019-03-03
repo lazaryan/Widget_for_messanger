@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '_components/Button';
 
 import './ErrorBlock.less';
+
+const propTypes = {
+    activeMessangers: PropTypes.func
+};
 
 class ErrorBlock extends Component {
     render () {
@@ -24,5 +29,7 @@ class ErrorBlock extends Component {
         );
     }
 }
+
+ErrorBlock.propTypes = propTypes;
 
 export default ErrorBlock;

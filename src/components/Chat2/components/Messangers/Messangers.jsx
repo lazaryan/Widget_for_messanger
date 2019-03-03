@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Link from '_components/Link';
 
@@ -11,8 +12,14 @@ import qr_facebook from './qr_code/facebook.png';
 
 import './Messangers.less';
 
+const propTypes = {
+    showMenuLink: PropTypes.func
+};
+
 class Messangers extends Component {
     render () {
+        const {showMenuLink} = this.props;
+
         return (
             <div>
                 <Link
@@ -24,7 +31,7 @@ class Messangers extends Component {
                     title="WhatsApp"
                     icon={logo_whatsApp}
                     qr_icon={qr_whatsApp}
-                    showActionMenu={this.props.showMenuLink}
+                    showActionMenu={showMenuLink}
                 />
                 <Link
                     url={{
@@ -33,7 +40,7 @@ class Messangers extends Component {
                     title="Messanger"
                     icon={logo_facebook}
                     qr_icon={qr_facebook}
-                    showActionMenu={this.props.showMenuLink}
+                    showActionMenu={showMenuLink}
                 />
                 <Link
                     url={{
