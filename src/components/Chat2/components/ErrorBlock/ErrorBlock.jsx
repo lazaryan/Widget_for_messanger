@@ -19,6 +19,7 @@ class ErrorBlock extends Component {
                     </p>
                 </div>
                 <Button onClick={activeMessangers}>Мессенджер</Button>
+                <Button >Почта</Button>
             </div>
         );
     }

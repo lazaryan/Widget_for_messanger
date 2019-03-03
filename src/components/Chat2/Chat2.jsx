@@ -100,7 +100,7 @@ class Chat2 extends Component {
         }));
     }
 
-    addMessage = message => {
+    addMessage = message => new Promise((resolve, reject) => {
         const {chat} = this.state;
         chat.push(message);
 
@@ -111,14 +111,14 @@ class Chat2 extends Component {
         if (message.to !== 'robot') {
             this.sendReply(message.text);
         }
-    }
+
+        resolve();
+    })
 
     sendReply = message => {
         const {diary} = this.state;
 
         const key = this.getMessage(message);
-
-        console.log(diary[key] instanceof Array);
 
         if (!key) {
             this.notReply();

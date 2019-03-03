@@ -27,7 +27,7 @@ class Chat extends Component {
 
         return (
             <Fragment>
-                <div className="r-chat__chat-body">
+                <div className="r-chat__chat-body" ref="sendMessage">
                     {chat.map(({to, text}, index) =>
                         <div
                             key={index}
@@ -51,13 +51,33 @@ class Chat extends Component {
     addMessage = message => {
         const {addMessage} = this.props;
 
-        addMessage(message);
+        addMessage(message)
+            .then(
+                resolve => {
+                    if (this.refs.sendMessage) {
+                        this.scroll('sendMessage');
+                    }
+                },
+                error => {
+                    console.warn(`error new message is: ${error}`);
+                }
+            );
     }
 
     showDefaultMessage = () => {
         defaultMessage.map(message => {
             this.addMessage(message);
         });
+    }
+
+    scroll = nameRefs => {
+        const el = this.refs[nameRefs];
+
+        if (!el) {
+            return;
+        }
+
+        el.scrollTop = el.scrollHeight;
     }
 }
 

@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
-import icon_chat from './icons/robot.svg';
 import './Header.less';
 
 const defaultText = 'Есть вопросы? Задавайте!';
@@ -19,24 +18,21 @@ class Header extends Component {
     }
 
     defaultTitle = () => (
-        <p className="r-chat__header_title-default">{defaultText}</p>
+        <Fragment>
+            <p className="r-chat__header_title-default">{defaultText}</p>
+            <div className="r-chat__header_close"></div>
+        </Fragment>
     )
 
     actionHeader = () => {
         const {disactiveChat} = this.props;
 
         return (
-            <div className="r-chat__header_active">
-                <div className="r-chat__header_icon">
-                    <img src={icon_chat} />
-                </div>
-                <div className="r-chat__header_body">
-                    <div className="r-chat__header_text">
-                        Чат Робот
-                    </div>
-                    <div className="r-chat__header_close" onClick={disactiveChat}></div>
-                </div>
-            </div>
+            <Fragment>
+                <p className="r-chat__header_title">Напишите нам</p>
+                <p className="r-chat__header_title-small">и мы ответим на все ваши вопросы</p>
+                <div className="r-chat__header_close" onClick={disactiveChat}></div>
+            </Fragment>
         );
     }
 }

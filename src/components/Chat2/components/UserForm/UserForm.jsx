@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import Input from '_components/Input';
 
@@ -9,6 +10,13 @@ const listInputs = [
     {name: 'name', title: 'Введите имя'},
     {name: 'phone', title: 'Введите телефон'}
 ];
+
+const propTypes = {
+    name: PropTypes.string,
+    phone: PropTypes.string,
+    changeUserInfo: PropTypes.func,
+    data: PropTypes.object
+};
 
 class UserForm extends Component {
     constructor(props) {
@@ -78,5 +86,7 @@ class UserForm extends Component {
             });
     }
 }
+
+UserForm.propTypes = propTypes;
 
 export default UserForm;

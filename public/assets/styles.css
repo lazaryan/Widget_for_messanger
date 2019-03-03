@@ -1,49 +1,45 @@
 .r-chat__header {
-  min-height: 50px;
+  min-height: 40px;
   border-radius: 25px 25px 0 0;
-  background-color: #8E8E8E;
+  background-color: #9e1f61;
   overflow: hidden;
+  position: relative;
 }
 .r-chat__header_disactive {
   cursor: pointer;
 }
+.r-chat__header_title {
+  padding-left: 30px;
+  color: #fff;
+  font-size: 18px;
+  margin: 0;
+  line-height: 40px;
+}
+.r-chat__header_title-small {
+  padding-left: 30px;
+  margin: 0;
+  color: #fff;
+  line-height: 30px;
+  font-size: 13px;
+}
 .r-chat__header_title-default {
-  line-height: 50px;
+  line-height: 40px;
   margin: 0;
   box-sizing: border-box;
   padding-left: 30px;
   color: #fff;
   font-weight: bold;
-  font-size: 20px;
-}
-.r-chat__header_active {
-  display: flex;
-}
-.r-chat__header_icon {
-  width: 80px;
-  padding: 5px;
-}
-.r-chat__header_body {
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% - 90px);
-}
-.r-chat__header_text {
-  line-height: 90px;
-  padding-left: 20px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
 }
 .r-chat__header_close {
+  position: absolute;
   width: 80px;
   height: 80px;
-  background-color: #a22;
+  background-color: #5FDA7C;
   border-radius: 50%;
-  margin-right: -30px;
-  margin-top: -30px;
+  right: -40px;
+  top: -50px;
   cursor: pointer;
-  border: 2px solid #fff;
 }
 
 .r-chat__input-form {
@@ -93,9 +89,9 @@
 
 .r-chat__page-chat {
   height: 80px;
-  background-color: #EBEBEB;
   display: flex;
   flex-wrap: wrap;
+  border-top: 3px solid #f1f0f0;
 }
 .r-chat__page-chat_text {
   width: 80%;
@@ -127,7 +123,7 @@
 }
 
 .r-chat__chat-body {
-  height: 320px;
+  height: 280px;
   box-sizing: border-box;
   padding: 10px;
   overflow: auto;
@@ -140,10 +136,11 @@
 .r-chat__message {
   line-height: 30px;
   font-size: 18px;
-  background-color: #507BF7;
+  background-color: #f1f0f0;
   padding: 5px 7px;
   border-radius: 10px;
   max-width: 65%;
+  font-size: 15px;
 }
 .r-chat__message_left {
   justify-content: flex-start;
@@ -298,7 +295,7 @@
   position: fixed;
   bottom: 0;
   right: 20px;
-  width: 400px;
+  width: 330px;
 }
 .r-chat__body {
   background-color: #FFF;
@@ -307,7 +304,7 @@
   transition: 0.7s height;
 }
 .r-chat__body_active {
-  height: 400px;
+  height: 360px;
 }
 .r-chat__body_active_padding {
   padding-top: 40px;

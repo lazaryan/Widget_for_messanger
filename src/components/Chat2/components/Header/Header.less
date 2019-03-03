@@ -1,59 +1,55 @@
-@bgc: #8E8E8E;
+@bgc: rgb(158, 31, 97);
 @color: #fff;
+@close: #5FDA7C;
+@padding_lef_text: 30px;
 
 .r-chat {
 	&__header {
-		min-height: 50px;
+		min-height: 40px;
 		border-radius: 25px 25px 0 0;
 		background-color: @bgc;
 		overflow: hidden;
+		position: relative;
 		
 		&_disactive {
 			cursor: pointer;
 		}
 
+		&_title {
+			padding-left: @padding_lef_text;
+			color: @color;
+			font-size: 18px;
+			margin: 0;
+			line-height: 40px;
+		}
+
+		&_title-small {
+			padding-left: @padding_lef_text;
+			margin: 0;
+			color: @color;
+			line-height: 30px;
+			font-size: 13px;
+		}
+
 		&_title-default {
-			line-height: 50px;
+			line-height: 40px;
 			margin: 0;
 			box-sizing: border-box;
-			padding-left: 30px;
+			padding-left: @padding_lef_text;
 			color: @color;
 			font-weight: bold;
-			font-size: 20px;
-		}
-
-		&_active {
-			display: flex;
-		}
-
-		&_icon {
-			width: 80px;
-			padding: 5px;
-		}
-
-		&_body {
-			display: flex;
-			justify-content: space-between;
-			width: calc(100% - 90px);
-		}
-
-		&_text {
-			line-height: 90px;
-			padding-left: 20px;
-			color: @color;
-			font-weight: bold;
-			font-size: 20px;
+			font-size: 17px;
 		}
 
 		&_close {
+			position: absolute;
 			width: 80px;
 			height: 80px;
-			background-color: #a22;
+			background-color: @close;
 			border-radius: 50%;
-			margin-right: -30px;
-			margin-top: -30px;
+			right: -40px;
+			top: -50px;
 			cursor: pointer;
-			border: 2px solid #fff;
 		}
 	}
 }

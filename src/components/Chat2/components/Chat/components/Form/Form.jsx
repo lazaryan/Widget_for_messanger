@@ -10,6 +10,10 @@ class Form extends Component {
         message: ''
     }
 
+    componentDidMount () {
+        this.textarea.focus();
+    }
+
     render () {
         const {message} = this.state;
 
@@ -22,6 +26,9 @@ class Form extends Component {
                         value={message}
                         onChange={this.changeText}
                         onKeyDown={this.handleKeyPress}
+                        ref={textarea => {
+                            this.textarea = textarea;
+                        }}
                     />
                 </div>
                 <div className="r-chat__page-chat_submit">
