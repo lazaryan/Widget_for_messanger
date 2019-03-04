@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import Cookies from 'universal-cookie';
 import axios from 'axios';
+import ip from 'ip';
 
 import Header from './components/Header';
 import UserForm from './components/UserForm';
@@ -31,10 +33,20 @@ class Chat2 extends Component {
                 url: '#',
                 qr_icon: '',
                 action: false
-            }
+            },
+            nameCookies: 'rChat'
         };
 
         this.getDiary();
+
+        const cookies = new Cookies();
+
+        if (!cookies.get(this.state.nameCookies)) {
+            this.createCookies(this.state.nameCookies);
+        } else {
+            const {id} = cookies.get(this.state.nameCookies);
+            console.log(id);
+        }
     }
 
     render () {
@@ -125,6 +137,8 @@ class Chat2 extends Component {
         }
 
         resolve();
+
+        console.log(this.state);
     })
 
     sendReply = message => {
@@ -245,6 +259,28 @@ class Chat2 extends Component {
         });
 
         return res.key;
+    }
+
+    createCookies = nameCookie => {
+        const cookies = new Cookies();
+
+        let rand = 10000 + Math.random() * (99999 + 1 - 10000);
+        rand = Math.floor(rand);
+
+        const id = ip.address().replace(/[.]/g, '') + rand;
+        const expires = new Date();
+        expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14);
+
+        cookies.set(
+            nameCookie,
+            {
+                id: id
+            },
+            {
+                path: '/',
+                expires: expires
+            }
+        );
     }
 }
 

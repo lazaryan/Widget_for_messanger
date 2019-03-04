@@ -19,7 +19,9 @@
     "@babel/preset-stage-0": "^7.0.0",
     "@babel/register": "^7.0.0",
     "axios": "^0.18.0",
-    "babel-loader": "^8.0.5"
+    "babel-loader": "^8.0.5",
+    "ip": "^1.1.5",
+    "universal-cookie": "^3.0.7"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
