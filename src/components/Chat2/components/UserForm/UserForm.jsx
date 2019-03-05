@@ -86,14 +86,16 @@ class UserForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        axios.post('./mail.php', {
+        const param = {
             name: this.state.name,
             email: this.state.email,
             phone: this.state.phone,
             message: this.state.message
-        })
+        };
+
+        axios.post('./mail.php', JSON.stringify(param))
             .then(res => {
-                console.log('Send');
+                console.log(res);
             })
             .catch(error => {
                 console.warn(error);

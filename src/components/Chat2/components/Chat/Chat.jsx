@@ -5,11 +5,6 @@ import Form from './components/Form';
 
 import './Chat.less';
 
-const defaultMessage = [
-    {to: 'robot', text: 'Здравствуйте'},
-    {to: 'robot', text: 'Я могу вам помочь?'}
-];
-
 const propTypes = {
     chat: PropTypes.array,
     addMessage: PropTypes.func
@@ -22,10 +17,6 @@ class Chat extends Component {
         this.state = {
             chat: props.chat
         };
-
-        if (this.state.chat.length === 0) {
-            this.showDefaultMessage();
-        }
     }
 
     render () {
@@ -68,12 +59,6 @@ class Chat extends Component {
                     console.warn(`error new message is: ${error}`);
                 }
             );
-    }
-
-    showDefaultMessage = () => {
-        defaultMessage.map(message => {
-            this.addMessage(message);
-        });
     }
 
     scroll = nameRefs => {

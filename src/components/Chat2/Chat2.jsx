@@ -28,7 +28,6 @@ class Chat2 extends Component {
                 action: false
             },
             chat: [],
-            diary: {},
             dataLinkMenu: {
                 url: '#',
                 qr_icon: '',
@@ -37,15 +36,20 @@ class Chat2 extends Component {
             nameCookies: 'rChat'
         };
 
-        this.getDiary();
-
         const cookies = new Cookies();
 
         if (!cookies.get(this.state.nameCookies)) {
             this.createCookies(this.state.nameCookies);
+
+            const {id} = cookies.get(this.state.nameCookies);
+
+            this.sendId(id);
+            this.sendDefaultText(id);
         } else {
             const {id} = cookies.get(this.state.nameCookies);
-            console.log(id);
+
+            this.sendId(id);
+            this.getDialog(id);
         }
     }
 
@@ -125,7 +129,13 @@ class Chat2 extends Component {
     }
 
     addMessage = message => new Promise((resolve, reject) => {
-        const {chat} = this.state;
+        const cookies = new Cookies();
+
+        const {chat, nameCookies} = this.state;
+        const {id} = cookies.get(this.state.nameCookies);
+
+        this.sendMessage(message, id);
+
         chat.push(message);
 
         this.setState({
@@ -137,24 +147,24 @@ class Chat2 extends Component {
         }
 
         resolve();
-
-        console.log(this.state);
     })
 
     sendReply = message => {
-        const {diary} = this.state;
-
-        const key = this.getMessage(message);
-
-        if (!key) {
-            this.notReply();
-        } else if (diary[key] instanceof Array) {
-            diary[key].forEach(el => {
-                this.addMessage({to: 'robot', text: el});
+        axios.post('./send_reply.php', JSON.stringify({text: message}))
+            .then(({data}) => {
+                if (!data) {
+                    this.notReply();
+                } else if (data instanceof Array) {
+                    data.forEach(el => {
+                        this.addMessage({to: 'robot', text: el});
+                    });
+                } else {
+                    this.addMessage({to: 'robot', text: data});
+                }
+            })
+            .catch(error => {
+                console.warn(error);
             });
-        } else {
-            this.addMessage({to: 'robot', text: diary[key]});
-        }
     }
 
     notReply = () => {
@@ -219,48 +229,6 @@ class Chat2 extends Component {
         }));
     }
 
-    getDiary = () => {
-        axios.get('./diary.json')
-            .then(({data}) => {
-                this.setState({
-                    diary: data
-                });
-            })
-            .catch(error => {
-                console.warn(error);
-            });
-    }
-
-    getMessage = message => {
-        const {diary} = this.state;
-        const words = message.toLowerCase().split(' ');
-        let res = {
-            count: 0,
-            key: ''
-        };
-
-        const keys = Object.keys(diary);
-        keys.forEach(el => {
-            const text = el.toLowerCase().split(' ');
-            let count = 0;
-
-            words.forEach(word => {
-                if (text.some(w => w === word)) {
-                    count++;
-                }
-            });
-
-            if (count > res.count) {
-                res = {
-                    count: count,
-                    key: el
-                };
-            }
-        });
-
-        return res.key;
-    }
-
     createCookies = nameCookie => {
         const cookies = new Cookies();
 
@@ -281,6 +249,57 @@ class Chat2 extends Component {
                 expires: expires
             }
         );
+    }
+
+    sendId = id => {
+        axios.post('./create.php', JSON.stringify({id}))
+            .then(response => {
+                console.log('create new user');
+            })
+            .catch(error => {
+                console.warn(error);
+            });
+    }
+
+    sendMessage = (message, id) => {
+        const param = {
+            message,
+            id
+        };
+
+        axios.post('./add_message.php', JSON.stringify(param))
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.warn(error);
+            });
+    }
+
+    getDialog = id => {
+        axios.post('./get_dialog.php', JSON.stringify({id}))
+            .then(({data}) => {
+                if (data.length === 0) {
+                    this.sendDefaultText();
+                } else {
+                    data.forEach(item => {
+                        const {chat} = this.state;
+                        chat.push(item);
+
+                        this.setState({
+                            chat: chat
+                        });
+                    });
+                }
+            })
+            .catch(error => {
+                console.warn(error);
+            });
+    }
+
+    sendDefaultText = () => {
+        this.addMessage({to: 'robot', text: 'Здравствуйте'});
+        this.addMessage({to: 'robot', text: 'Я могу вам помочь?'});
     }
 }
 
