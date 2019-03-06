@@ -10,6 +10,10 @@ $id         = $_POST['id'];
 $string     = file_get_contents($file);
 $data       = json_decode($string);
 
+if (is_null($data->$id->dialog)) {
+    $data->$id->dialog = [];
+}
+
 array_push($data->$id->dialog, $message);
 
 # echo json_encode($data->$id->dialog);

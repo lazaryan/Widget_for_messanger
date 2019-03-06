@@ -138,15 +138,13 @@ class Chat2 extends Component {
 
         chat.push(message);
 
-        this.setState({
-            chat: chat
-        });
-
         if (message.to !== 'robot') {
             this.sendReply(message.text);
         }
 
-        resolve();
+        this.setState({
+            chat: chat
+        }, () => resolve());
     })
 
     sendReply = message => {
@@ -156,13 +154,14 @@ class Chat2 extends Component {
                     this.notReply();
                 } else if (data instanceof Array) {
                     data.forEach(el => {
-                        this.addMessage({to: 'robot', text: el});
+                        this.addMessage({to: 'robot', text: el})
                     });
                 } else {
-                    this.addMessage({to: 'robot', text: data});
+                    this.addMessage({to: 'robot', text: data})
                 }
             })
             .catch(error => {
+                this.notReply();
                 console.warn(error);
             });
     }
@@ -272,6 +271,7 @@ class Chat2 extends Component {
                 console.log(response);
             })
             .catch(error => {
+                this.notReply();
                 console.warn(error);
             });
     }
@@ -279,7 +279,7 @@ class Chat2 extends Component {
     getDialog = id => {
         axios.post('./get_dialog.php', JSON.stringify({id}))
             .then(({data}) => {
-                if (data.length === 0) {
+                if (!data || data.length === 0) {
                     this.sendDefaultText();
                 } else {
                     data.forEach(item => {
