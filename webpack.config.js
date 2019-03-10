@@ -7,7 +7,8 @@ const MiniCssExtractPlugin      = require('mini-css-extract-plugin');
 const CleanWebpackPlugin        = require('clean-webpack-plugin');
 const UglifyJsPlugin            = require('uglifyjs-webpack-plugin');
 const HardSourceWebpackPlugin   = require('hard-source-webpack-plugin');
-const OptimizeCSSAssetsPlugin   = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin   = require('optimize-css-assets-webpack-plugin');
+const autoprefixer              = require('autoprefixer');
 
 const NODE_ENV      = process.env.NODE_ENV || 'development';
 const isDevelopment = NODE_ENV === 'development';
@@ -82,7 +83,14 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     isDevelopment ? 'style' : MiniCssExtractPlugin.loader,
-                    {loader: 'css', options: {url: false, sourceMap: isDevelopment}}
+                    {loader: 'css', options: {url: false, sourceMap: isDevelopment}},
+                    {loader: 'postcss', options: {
+                        plugins: [
+                            autoprefixer({
+                                browsers:['ie >= 8', 'last 4 version']
+                            })
+                        ]
+                    }},
                 ]
             },
             {
@@ -90,6 +98,13 @@ module.exports = {
                 use: [
                     isDevelopment ? 'style' : MiniCssExtractPlugin.loader,
                     {loader: 'css', options: {url: false, sourceMap: isDevelopment}},
+                    {loader: 'postcss', options: {
+                        plugins: [
+                            autoprefixer({
+                                browsers:['ie >= 8', 'last 4 version']
+                            })
+                        ]
+                    }},
                     {loader: 'less', options: {sourceMap: isDevelopment}}
                 ]
             },

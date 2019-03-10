@@ -163,14 +163,14 @@ class Chat2 extends Component {
                     this.notReply();
                 } else if (data instanceof Array) {
                     data.forEach(el => {
-                        this.addMessage({to: 'robot', text: el})
+                        this.addMessage({to: 'robot', text: el});
                     });
                 } else {
                     if (!data) {
                         this.notReply();
                     }
 
-                    this.addMessage({to: 'robot', text: data})
+                    this.addMessage({to: 'robot', text: data});
                 }
             })
             .catch(error => {
@@ -319,14 +319,14 @@ class Chat2 extends Component {
     getActionPath = () => {
         axios.get('./rChatPath.json')
             .then(({data}) => {
-                if (data['DIR_PHP']) {
+                if (data.DIR_PHP) {
                     this.setState({
-                        pathToAction: data['DIR_PHP']
+                        pathToAction: data.DIR_PHP
                     });
-                } 
+                }
             })
             .catch(error => {
-                this.getDefaultPath()
+                this.getDefaultPath();
             });
     }
 
