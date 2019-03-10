@@ -25,10 +25,7 @@ class Header extends Component {
     }
 
     defaultTitle = () => (
-        <Fragment>
-            <p className="r-chat__header_title-default">{defaultText}</p>
-            <div className="r-chat__header_close"></div>
-        </Fragment>
+        <p className="r-chat__header_title-default">{defaultText}</p>
     )
 
     actionHeader = () => {
@@ -36,9 +33,11 @@ class Header extends Component {
 
         return (
             <Fragment>
-                <p className="r-chat__header_title">Напишите нам</p>
-                <p className="r-chat__header_title-small">и мы ответим на все ваши вопросы</p>
                 <div className="r-chat__header_close" onClick={disactiveChat}></div>
+                <div className="r-chat__header_text">
+                    <p className="r-chat__header_title">Напишите нам</p>
+                    <p className="r-chat__header_title-small">и мы ответим на все ваши вопросы</p>
+                </div>
             </Fragment>
         );
     }

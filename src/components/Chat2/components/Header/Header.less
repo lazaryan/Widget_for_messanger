@@ -1,5 +1,5 @@
-@bgc: rgb(158, 31, 97);
-@color: #fff;
+@bgc: #A9A9A9;
+@color: #000;
 @close: #5FDA7C;
 @padding_lef_text: 30px;
 
@@ -10,6 +10,8 @@
 		background-color: @bgc;
 		overflow: hidden;
 		position: relative;
+		display: flex;
+		align-items: center;
 		
 		&_disactive {
 			cursor: pointer;
@@ -42,14 +44,44 @@
 		}
 
 		&_close {
-			position: absolute;
-			width: 80px;
-			height: 80px;
-			background-color: @close;
+			width: 50px;
+			height: 50px;
 			border-radius: 50%;
-			right: -40px;
-			top: -50px;
+			margin-left: 10px;
+			border: 2px solid #222;
 			cursor: pointer;
+			position: relative;
+			transition: .5s;
+			
+			&:hover {
+				border: 2px solid #a22;
+			}
+			
+			&::before,
+			&::after {
+				content: '';
+				display: block;
+				position: absolute;
+				width: 80%;
+				height: 2px;
+				background-color: #222;
+				top: 50%;
+				left: 10%;
+				transition: .5s;
+			}
+
+			&:hover::before,
+			&:hover::after {
+				background-color: #a22;
+			}
+
+			&::before {
+				transform: translateY(-50%) rotate(45deg);
+			}
+
+			&::after {
+				transform: translateY(-50%) rotate(-45deg);
+			}
 		}
 	}
 }

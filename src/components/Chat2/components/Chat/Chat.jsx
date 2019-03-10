@@ -40,6 +40,7 @@ class Chat extends Component {
                 </div>
                 <Form
                     sendMessage={this.addMessage}
+                    ref={() => this.scroll('sendMessage')}
                 />
             </Fragment>
         );
@@ -65,10 +66,12 @@ class Chat extends Component {
         const el = this.refs[nameRefs];
 
         if (!el) {
-            return;
+            return null;
         }
 
         el.scrollTop = el.scrollHeight;
+
+        return null;
     }
 }
 

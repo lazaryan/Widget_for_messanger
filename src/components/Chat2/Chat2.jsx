@@ -33,8 +33,11 @@ class Chat2 extends Component {
                 qr_icon: '',
                 action: false
             },
-            nameCookies: 'rChat'
+            nameCookies: 'rChat',
+            pathToAction: './'
         };
+
+        this.getActionPath();
 
         const cookies = new Cookies();
 
@@ -51,6 +54,10 @@ class Chat2 extends Component {
             this.sendId(id);
             this.getDialog(id);
         }
+
+        setTimeout(() => {
+            this.activeChat();
+        }, 5000);
     }
 
     render () {
@@ -148,7 +155,9 @@ class Chat2 extends Component {
     })
 
     sendReply = message => {
-        axios.post('./send_reply.php', JSON.stringify({text: message}))
+        const {pathToAction} = this.state;
+
+        axios.post(`${pathToAction}send_reply.php`, JSON.stringify({text: message}))
             .then(({data}) => {
                 if (!data) {
                     this.notReply();
@@ -157,6 +166,10 @@ class Chat2 extends Component {
                         this.addMessage({to: 'robot', text: el})
                     });
                 } else {
+                    if (!data) {
+                        this.notReply();
+                    }
+
                     this.addMessage({to: 'robot', text: data})
                 }
             })
@@ -251,25 +264,24 @@ class Chat2 extends Component {
     }
 
     sendId = id => {
-        axios.post('./create.php', JSON.stringify({id}))
-            .then(response => {
-                console.log('create new user');
-            })
+        const {pathToAction} = this.state;
+
+        axios.post(`${pathToAction}create.php`, JSON.stringify({id}))
+            .then(response => {})
             .catch(error => {
                 console.warn(error);
             });
     }
 
     sendMessage = (message, id) => {
+        const {pathToAction} = this.state;
         const param = {
             message,
             id
         };
 
-        axios.post('./add_message.php', JSON.stringify(param))
-            .then(response => {
-                console.log(response);
-            })
+        axios.post(`${pathToAction}add_message.php`, JSON.stringify(param))
+            .then(response => {})
             .catch(error => {
                 this.notReply();
                 console.warn(error);
@@ -277,7 +289,9 @@ class Chat2 extends Component {
     }
 
     getDialog = id => {
-        axios.post('./get_dialog.php', JSON.stringify({id}))
+        const {pathToAction} = this.state;
+
+        axios.post(`${pathToAction}get_dialog.php`, JSON.stringify({id}))
             .then(({data}) => {
                 if (!data || data.length === 0) {
                     this.sendDefaultText();
@@ -300,6 +314,26 @@ class Chat2 extends Component {
     sendDefaultText = () => {
         this.addMessage({to: 'robot', text: 'Здравствуйте'});
         this.addMessage({to: 'robot', text: 'Я могу вам помочь?'});
+    }
+
+    getActionPath = () => {
+        axios.get('./rChatPath.json')
+            .then(({data}) => {
+                if (data['DIR_PHP']) {
+                    this.setState({
+                        pathToAction: data['DIR_PHP']
+                    });
+                } 
+            })
+            .catch(error => {
+                this.getDefaultPath()
+            });
+    }
+
+    getDefaultPath = () => {
+        this.setState({
+            pathToAction: './'
+        });
     }
 }
 
