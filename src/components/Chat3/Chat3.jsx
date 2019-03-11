@@ -11,12 +11,22 @@ class Chat3 extends Component {
 
         this.state = {
             actionChat: false,
-            actionForm: false
+            actionForm: false,
+            form: {
+                name: '',
+                email: '',
+                phone: '',
+                message: ''
+            }
         };
     }
 
     render () {
-        const {actionChat, actionForm} = this.state;
+        const {
+            actionChat,
+            actionForm,
+            form
+        } = this.state;
 
         return (
             <div className="rChat">
@@ -28,7 +38,10 @@ class Chat3 extends Component {
                     {!actionChat ? null :
                         <Form
                             changeActionForm={this.changeActionForm}
+                            changeInfoForm={this.changeInfoForm}
                             actionForm={actionForm}
+                            clearForm={this.clearForm}
+                            data={form}
                         />
                     }
                 </div>
@@ -46,6 +59,26 @@ class Chat3 extends Component {
         this.setState(({actionForm}) => ({
             actionForm: !actionForm
         }));
+    }
+
+    changeInfoForm = ({target: {name, value}}) => {
+        this.setState(({form}) => ({
+            form: {
+                ...form,
+                [name]: value
+            }
+        }));
+    }
+
+    clearForm = () => {
+        this.setState({
+            form: {
+                name: '',
+                email: '',
+                phone: '',
+                message: ''
+            }
+        });
     }
 }
 

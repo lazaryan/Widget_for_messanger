@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import './Input.less';
+import './Textarea.less';
 
 const propTypes = {
     type: PropTypes.string,
@@ -21,21 +21,21 @@ const defaultProps = {
     value: ''
 };
 
-class Input extends Component {
+class Textarea extends Component {
     render () {
         const {
             type,
             placeholder,
             required,
-            name,
             onChange,
+            name,
             value
         } = this.props;
 
         return (
-            <div className="rChat__input-block">
-                <input
-                    className="rChat__input"
+            <div className="rChat__textarea-block">
+                <textarea
+                    className="rChat__textarea"
                     type={type}
                     required={required ? 'required' : ''}
                     placeholder={placeholder + (required ? '*' : '')}
@@ -48,7 +48,7 @@ class Input extends Component {
     }
 }
 
-Input.propTypes = propTypes;
-Input.defaultProps = defaultProps;
+Textarea.propTypes = propTypes;
+Textarea.defaultProps = defaultProps;
 
-export default Input;
+export default Textarea;
