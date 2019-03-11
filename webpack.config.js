@@ -26,19 +26,17 @@ let plugins = [
     }),
     new MiniCssExtractPlugin({
         filename: cssName
+    }),
+    new CleanWebpackPlugin(['public/assets/'], {
+        root: __dirname,
+        verbose: true,
+        dry: false
     })
 ];
 
 let optimization = {};
 
 if (!isDevelopment) {
-    plugins.push(
-        new CleanWebpackPlugin(['public/assets/'], {
-            root: __dirname,
-            verbose: true,
-            dry: false
-        })
-    );
     plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
     plugins.push(new HardSourceWebpackPlugin());
 
