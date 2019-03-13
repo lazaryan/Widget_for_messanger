@@ -1,6 +1,8 @@
 const state = {
     actionChat: false,
     actionForm: false,
+    error: false,
+    reply: false,
     form: {
         name: '',
         email: '',
@@ -9,7 +11,9 @@ const state = {
     },
     chat: [],
     userPhoto: '',
-    message: ''
+    message: '',
+    pathToAction: '',
+    nameCookies: `rChat-${location.host}`
 };
 
 export default state;

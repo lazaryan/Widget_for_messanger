@@ -10,7 +10,6 @@ class App extends Component {
         return (
             <Fragment>
                 <Chat3 />
-                <Chat2 />
             </Fragment>
         );
     }

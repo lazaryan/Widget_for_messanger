@@ -1,3 +1,4 @@
 {
-	"PATH_TO_IMAGE_USER": "./women.png"
+	"PATH_TO_IMAGE_USER": "./women.png",
+	"DIR_PHP": "./"
 }

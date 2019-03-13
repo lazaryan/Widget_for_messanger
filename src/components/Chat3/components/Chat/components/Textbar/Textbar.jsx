@@ -7,12 +7,14 @@ import iconArrow from './arrow.svg';
 const propTypes = {
     addMessage: PropTypes.func,
     changeMessage: PropTypes.func,
+    activeReply: PropTypes.func,
     message: PropTypes.string
 };
 
 const defaultProps = {
     addMessage: () => {},
     changeMessage: () => {},
+    activeReply: () => {},
     message: ''
 };
 
@@ -64,9 +66,10 @@ class Textbar extends Component {
     }
 
     sendMessage = () => {
-        const {message, addMessage, changeMessage} = this.props;
+        const {message, addMessage, changeMessage, activeReply} = this.props;
 
         if (message) {
+            activeReply();
             addMessage({to: 'user', message});
 
             changeMessage('');

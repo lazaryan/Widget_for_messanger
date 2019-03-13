@@ -10,7 +10,9 @@ const propTypes = {
     userPhoto: PropTypes.string,
     addMessage: PropTypes.func,
     changeMessage: PropTypes.func,
-    message: PropTypes.string
+    activeReply: PropTypes.func,
+    message: PropTypes.string,
+    reply: PropTypes.bool
 };
 
 const defaultProps = {
@@ -18,7 +20,9 @@ const defaultProps = {
     userPhoto: '',
     addMessage: () => {},
     changeMessage: () => {},
-    message: ''
+    activeReply: () => {},
+    message: '',
+    reply: false
 };
 
 class Chat extends Component {
@@ -28,7 +32,9 @@ class Chat extends Component {
             userPhoto,
             addMessage,
             message,
-            changeMessage
+            changeMessage,
+            reply,
+            activeReply
         } = this.props;
 
         return (
@@ -39,12 +45,14 @@ class Chat extends Component {
                             {this.message({...el, userPhoto})}
                         </Fragment>
                     )}
+                    {reply ? null : this.reply()}
                 </div>
                 <Textbar
                     ref={() => this.scroll('sendMessage')}
                     addMessage={addMessage}
                     message={message}
                     changeMessage={changeMessage}
+                    activeReply={activeReply}
                 />
             </Fragment>
         );
@@ -75,6 +83,14 @@ class Chat extends Component {
 
         return null;
     }
+
+    reply = () => (
+        <div className="rChat__message rChat__message_left rChat__message_reply">
+            <div className="rChat__message_reply-cucle"></div>
+            <div className="rChat__message_reply-cucle"></div>
+            <div className="rChat__message_reply-cucle"></div>
+        </div>
+    )
 
     scroll = nameRefs => {
         const el = this.refs[nameRefs];
