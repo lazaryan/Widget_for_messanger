@@ -1,29 +1,24 @@
 import React, {Component, Fragment} from 'react';
+import axios from 'axios';
 
 import Header from './components/Header';
 import Form from './components/Form';
 import Chat from './components/Chat';
 
 import './Chat3.less';
+import state from './data.js';
 
 class Chat3 extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            actionChat: false,
-            actionForm: false,
-            form: {
-                name: '',
-                email: '',
-                phone: '',
-                message: ''
-            },
-            chat: [
-                {to: 'robot', message: 'тест тест авпвап'},
-                {to: 'user', message: 'fgfg'}
-            ]
-        };
+        this.state = state;
+
+        this.getDefaultData();
+
+        setTimeout(() => {
+            this.actionChat();
+        }, 5000);
     }
 
     render () {
@@ -31,7 +26,9 @@ class Chat3 extends Component {
             actionChat,
             actionForm,
             form,
-            chat
+            chat,
+            userPhoto,
+            message
         } = this.state;
 
         return (
@@ -52,12 +49,22 @@ class Chat3 extends Component {
                             />
                             <Chat
                                 chat={chat}
+                                message={message}
+                                addMessage={this.addMessage}
+                                changeMessage={this.changeMessage}
+                                userPhoto={userPhoto}
                             />
                         </Fragment>
                     }
                 </div>
             </div>
         );
+    }
+
+    actionChat = () => {
+        this.setState({
+            actionChat: true
+        });
     }
 
     changeActionChat = () => {
@@ -89,6 +96,36 @@ class Chat3 extends Component {
                 phone: '',
                 message: ''
             }
+        });
+    }
+
+    getDefaultData = () => {
+        axios.get('./rChatData.json')
+            .then(({data}) => {
+                this.setState({userPhoto: data.PATH_TO_IMAGE_USER});
+            })
+            .catch(error => {
+                this.writeDefaultData();
+            });
+    }
+
+    writeDefaultData = () => {
+        this.setState({userPhoto: ''});
+    }
+
+    addMessage = message => {
+        const {chat} = this.state;
+
+        chat.push(message);
+
+        this.setState({
+            chat
+        });
+    }
+
+    changeMessage = message => {
+        this.setState({
+            message
         });
     }
 }
