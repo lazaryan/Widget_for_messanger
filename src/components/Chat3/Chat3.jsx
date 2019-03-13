@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import Header from './components/Header';
 import Form from './components/Form';
+import Chat from './components/Chat';
 
 import './Chat3.less';
 
@@ -17,7 +18,11 @@ class Chat3 extends Component {
                 email: '',
                 phone: '',
                 message: ''
-            }
+            },
+            chat: [
+                {to: 'robot', message: 'тест тест авпвап'},
+                {to: 'user', message: 'fgfg'}
+            ]
         };
     }
 
@@ -25,7 +30,8 @@ class Chat3 extends Component {
         const {
             actionChat,
             actionForm,
-            form
+            form,
+            chat
         } = this.state;
 
         return (
@@ -36,13 +42,18 @@ class Chat3 extends Component {
                 />
                 <div className={`rChat__body ${actionChat ? 'rChat__body_action' : ''}`}>
                     {!actionChat ? null :
-                        <Form
-                            changeActionForm={this.changeActionForm}
-                            changeInfoForm={this.changeInfoForm}
-                            actionForm={actionForm}
-                            clearForm={this.clearForm}
-                            data={form}
-                        />
+                        <Fragment>
+                            <Form
+                                changeActionForm={this.changeActionForm}
+                                changeInfoForm={this.changeInfoForm}
+                                actionForm={actionForm}
+                                clearForm={this.clearForm}
+                                data={form}
+                            />
+                            <Chat
+                                chat={chat}
+                            />
+                        </Fragment>
                     }
                 </div>
             </div>
