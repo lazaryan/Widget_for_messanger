@@ -2,7 +2,7 @@ const state = {
     actionChat: false,
     actionForm: false,
     error: false,
-    reply: false,
+    reply: true,
     form: {
         name: '',
         email: '',

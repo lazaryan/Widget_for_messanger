@@ -4,7 +4,7 @@ $file = './diary.json';
 
 $_POST      = json_decode(file_get_contents('php://input'), true);
 
-$text		= $_POST['text'];
+$text		= $_POST['message'];
 $text 		= strtolower($text);
 
 if (file_exists($file)) {

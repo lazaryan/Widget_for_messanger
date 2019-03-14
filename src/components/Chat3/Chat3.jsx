@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import ip from 'ip';
 
+import Messangers from './components/Messangers';
 import Header from './components/Header';
 import Form from './components/Form';
 import Chat from './components/Chat';
@@ -60,7 +61,7 @@ class Chat3 extends Component {
                 />
                 <div className={`rChat__body ${actionChat ? 'rChat__body_action' : ''}`}>
                     {!actionChat || error ? null :
-                        <Fragment>
+                        <div className="rChat__body_chat">
                             <Form
                                 changeActionForm={this.changeActionForm}
                                 changeInfoForm={this.changeInfoForm}
@@ -77,7 +78,7 @@ class Chat3 extends Component {
                                 userPhoto={userPhoto}
                                 reply={reply}
                             />
-                        </Fragment>
+                        </div>
                     }
                     {!error ? null :
                         <Form
@@ -89,6 +90,7 @@ class Chat3 extends Component {
                             type="Error"
                         />
                     }
+                    {!actionChat ? null : <Messangers />}
                 </div>
             </div>
         );
@@ -226,6 +228,7 @@ class Chat3 extends Component {
 
     sendDefaultText = () => {
         this.addMessage({to: 'robot', message: 'Здравствуйте'});
+
         this.addMessage({to: 'robot', message: 'Я могу вам помочь?'});
     }
 
@@ -280,6 +283,7 @@ class Chat3 extends Component {
                 }
             })
             .catch(error => {
+                this.notReply();
                 console.warn(error);
             });
     }

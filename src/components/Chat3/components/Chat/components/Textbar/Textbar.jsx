@@ -66,7 +66,14 @@ class Textbar extends Component {
     }
 
     sendMessage = () => {
-        const {message, addMessage, changeMessage, activeReply} = this.props;
+        const {
+            message,
+            addMessage,
+            changeMessage,
+            activeReply
+        } = this.props;
+
+        console.log('send');
 
         if (message) {
             activeReply();

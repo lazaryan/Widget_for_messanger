@@ -55,7 +55,7 @@ class Form extends Component {
         } = this.props;
 
         return (
-            <div className='rChat__form'>
+            <div className={`rChat__form ${type === 'Error' ? 'rChat__form_error' : ''}`}>
                 <div className={`rChat__form_body ${actionForm ? 'rChat__form_body-action' : ''}`}>
                     {!actionForm ? null :
                         <form>
