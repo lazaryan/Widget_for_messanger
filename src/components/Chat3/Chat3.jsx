@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 import ip from 'ip';
 
 import Messangers from './components/Messangers';
+import Blocklink from './components/Blocklink';
 import Header from './components/Header';
 import Form from './components/Form';
 import Chat from './components/Chat';
@@ -45,12 +46,15 @@ class Chat3 extends Component {
         const {
             actionChat,
             actionForm,
+            actionBlockLink,
             form,
+            blockLink,
             chat,
             userPhoto,
             message,
             error,
-            reply
+            reply,
+            messangerAction
         } = this.state;
 
         return (
@@ -90,7 +94,19 @@ class Chat3 extends Component {
                             type="Error"
                         />
                     }
-                    {!actionChat ? null : <Messangers />}
+                    {!actionChat ? null :
+                        <Messangers
+                            actionBlock={this.activeBlockLink}
+                            messangerAction={messangerAction}
+                            changeMessangerAction={this.changeMessangerAction}
+                            message={message}
+                        />
+                    }
+                    <Blocklink
+                        close={this.disactiveBlockLink}
+                        action={actionBlockLink}
+                        url={blockLink.url}
+                    />
                 </div>
             </div>
         );
@@ -295,6 +311,22 @@ class Chat3 extends Component {
     disactiveReply = () => {
         this.setState({reply: false});
     }
+
+    activeBlockLink = url => {
+        this.setState({
+            actionBlockLink: true,
+            blockLink: {
+                url
+            }
+        });
+    }
+
+    disactiveBlockLink = () => {
+        this.setState({actionBlockLink: false});
+        this.changeMessangerAction('');
+    }
+
+    changeMessangerAction = name => this.setState({messangerAction: name});
 }
 
 export default Chat3;

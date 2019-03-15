@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import PropTypes from 'prop-types';
 
 import Messanger from './components/Messanger';
 
@@ -8,38 +9,75 @@ import logoEmail from './icons/email.svg';
 import logoFacebook from './icons/messenger.svg';
 import logoWhatsApp from './icons/whatsapp.svg';
 
+const propTypes = {
+    actionBlock: PropTypes.func,
+    messangerAction: PropTypes.string,
+    changeMessangerAction: PropTypes.func
+};
+
+const defaultProps = {
+    actionBlock: () => {},
+    messangerAction: '',
+    changeMessangerAction: () => {}
+};
+
+const data = [
+    {
+        name: 'E-mail',
+        type: 'email',
+        logo: logoEmail,
+        url: 'hprosmen@mail.ru'
+    },
+    {
+        name: 'Facebook',
+        logo: logoFacebook,
+        url: 'https://www.facebook.com/hprosmen.ru/'
+    },
+    {
+        name: 'WhatsApp',
+        logo: logoWhatsApp,
+        nameAttrMessage: 'text',
+        url: {
+            href: 'https://api.whatsapp.com/send?',
+            phone: '74991120113'
+        }
+    },
+    {
+        name: 'CallUS',
+        type: 'phone',
+        logo: logoEmail,
+        url: '+74991120113'
+    }
+];
+
 class Messangers extends Component {
     render () {
+        const {
+            actionBlock,
+            messangerAction,
+            changeMessangerAction,
+            message
+        } = this.props;
+
         return (
             <div className="rChat__messangers">
-                <Messanger
-                    name="E-mail"
-                    type="email"
-                    logo={logoEmail}
-                    url="hprosmen@mail.ru"
-                />
-                <Messanger
-                    name="facebook"
-                    logo={logoFacebook}
-                    url="https://www.facebook.com/hprosmen.ru/"
-                />
-                <Messanger
-                    name="WhatsApp"
-                    logo={logoWhatsApp}
-                    url={{
-                        href: 'https://api.whatsapp.com/send?',
-                        phone: '+74991120113'
-                    }}
-                />
-                <Messanger
-                    name="CallUS"
-                    type="phone"
-                    logo={logoEmail}
-                    url="+74991120113"
-                />
+                {
+                    data.map((props, index) => (
+                        <Messanger key={`messenger-${index}`}
+                            {...props}
+                            actionBlock={actionBlock}
+                            active={props.name === messangerAction}
+                            action={changeMessangerAction}
+                            text={props.nameAttrMessage ? {message, name: props.nameAttrMessage} : ''}
+                        />
+                    ))
+                }
             </div>
         );
     }
 }
+
+Messangers.propTypes = propTypes;
+Messangers.defaultProps = defaultProps;
 
 export default Messangers;

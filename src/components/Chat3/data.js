@@ -1,19 +1,24 @@
 const state = {
-    actionChat: false,
+    actionChat: true,
     actionForm: false,
+    actionBlockLink: false,
     error: false,
-    reply: true,
+    reply: false,
     form: {
         name: '',
         email: '',
         phone: '',
         message: ''
     },
+    blockLink: {
+        url: ''
+    },
     chat: [],
     userPhoto: '',
     message: '',
     pathToAction: '',
-    nameCookies: `rChat-${location.host}`
+    nameCookies: `rChat-${location.host}`,
+    messangerAction: ''
 };
 
 export default state;
