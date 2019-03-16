@@ -1,0 +1,26 @@
+.rChat {
+	width: 100%;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	max-width: 420px;
+	
+	@media only screen and (min-width: 768px) {
+		right: 100px;
+		width: auto;
+	}
+	
+	&__body {
+		transition: .5s;
+		height: 0;
+		background-color: #FFF;
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		
+		&_action {
+			height: 400px;
+			max-height: 85vh;
+		}
+	}
+}

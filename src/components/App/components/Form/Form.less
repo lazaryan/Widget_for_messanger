@@ -1,0 +1,67 @@
+.rChat__form {
+	width: 300px;
+	max-width: 70vw;
+	position: absolute;
+	top: 0;
+	z-index: 3;
+	background-color: #FFF;
+	max-height: 70vh;
+	
+	&_action {
+		background-color: #EAE9E9;
+		border-radius: 0 0 10px 10px;
+		transition: .5s;
+		cursor: pointer;
+		
+		&:hover {
+			background-color: #CBCBCB;
+		}
+
+		&-text {
+			line-height: 30px;
+			text-align: center;
+			margin: 0;
+		}
+	}
+
+	&_error {
+		position: relative;
+		z-index: 1;
+	}
+
+	&_body {
+		height: 0;
+		opacity: 0;
+		transition: .5s;
+	}
+
+	&_body-action {
+		height: 370px;
+		opacity: 1;
+	}
+
+	&_prev-text {
+		box-sizing: border-box;
+		margin: 0;
+		margin-top: 5px;
+		margin-bottom: 10px;
+		padding: 0 10px;
+		line-height: 23px;
+		font-size: 16px;
+	}
+
+	&_send-form {
+		display: block;
+		margin: 5px auto;
+		padding: 5px 10px;
+		border-radius: 5px;
+		border: none;
+		background-color: #E9E9E9;
+		transition: .5s;
+		cursor: pointer;
+		
+		&:hover {
+			background-color: #D1D1D1;
+		}
+	}
+}
