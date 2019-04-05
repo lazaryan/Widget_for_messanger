@@ -9,7 +9,8 @@ const propTypes = {
     required: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    maxlength: PropTypes.number
 };
 
 const defaultProps = {
@@ -18,7 +19,8 @@ const defaultProps = {
     required: false,
     name: '',
     onChange: () => {},
-    value: ''
+    value: '',
+    maxlength: 400
 };
 
 class Textarea extends Component {
@@ -29,7 +31,8 @@ class Textarea extends Component {
             required,
             onChange,
             name,
-            value
+            value,
+            maxlength
         } = this.props;
 
         return (
@@ -42,6 +45,7 @@ class Textarea extends Component {
                     name={name}
                     onChange={onChange}
                     value={value}
+                    maxLength={maxlength}
                 />
             </div>
         );

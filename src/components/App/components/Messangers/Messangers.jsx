@@ -16,13 +16,15 @@ import qrWhatsApp from './qr/whatsapp.png';
 const propTypes = {
     actionBlock: PropTypes.func,
     messangerAction: PropTypes.string,
-    changeMessangerAction: PropTypes.func
+    changeMessangerAction: PropTypes.func,
+    sendMessage: PropTypes.func
 };
 
 const defaultProps = {
     actionBlock: () => {},
     messangerAction: '',
-    changeMessangerAction: () => {}
+    changeMessangerAction: () => {},
+    sendMessage: () => {}
 };
 
 const data = [
@@ -35,7 +37,7 @@ const data = [
     {
         name: 'Facebook',
         logo: logoFacebook,
-        url: 'https://www.facebook.com/hprosmen.ru/',
+        url: 'https://www.messenger.com/t/hprosmen.ru',
         qrCode: qrFacebook
     },
     {
@@ -62,7 +64,8 @@ class Messangers extends Component {
             actionBlock,
             messangerAction,
             changeMessangerAction,
-            message
+            message,
+            sendMessage
         } = this.props;
 
         return (
@@ -75,6 +78,7 @@ class Messangers extends Component {
                             active={props.name === messangerAction}
                             action={changeMessangerAction}
                             text={props.nameAttrMessage ? {message, name: props.nameAttrMessage} : ''}
+                            sendMessage={sendMessage}
                         />
                     ))
                 }

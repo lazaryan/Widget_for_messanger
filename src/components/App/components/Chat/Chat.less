@@ -1,12 +1,18 @@
 .rChat__chat {
-	padding-top: 50px;
 	width: 300px;
-	max-width: 70vw;
+	max-width: 60vw;
 	margin: auto;
-	height: 330px;
+	height: 180px;
 	max-height: 60vh;
 	box-sizing: border-box;
 	overflow: auto;
+	transition: .5s;
+	padding-top: 30px;
+	box-sizing: border-box;
+	
+	&_disactive {
+		height: 250px;
+	}
 }
 
 .rChat__message {
@@ -14,56 +20,100 @@
 	width: 100%;
 	margin-bottom: 10px;
 	
+	&-i {
+		width: max-content;
+	}
+	
+	&_body {
+		display: flex;
+		align-items: flex-start;
+	}
+	
 	&_left {
 		justify-content: flex-start;
 		position: relative;
+		flex-direction: column;
+		
+		&-i {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-end;
+		}
 	}
 
 	&_right {
 		justify-content: flex-end;
+		padding-right: 5px;
+		box-sizing: border-box;
+		align-items: flex-end;
+	}
+
+	&_triangle {
+		
+		&-left {
+			height: 0;
+			border: 7px solid transparent;
+			border-bottom: 7px solid #eeeeee;
+			border-right: 7px solid #eeeeee;
+		}
+
+		&-right {
+			border: 7px solid transparent;
+			border-bottom: 7px solid #1fa5ff;
+			border-left: 7px solid #1fa5ff;
+		}
 	}
 
 	&_reply {
-		background-color: #E9E8E8;
 		padding: 5px 10px;
 		border-radius: 10px;
-		width: 40px;
 		height: 25px;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
+		line-height: 30px;
+		box-sizing: border-box;
 		
 		&-cucle {
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-			background-color: #ADADAD;
+			font-size: 13px;
+			font-family: Roboto, sans-serif;
+			font-style: italic;
+			display: flex;
+			color: #D3D3D3;
+			
+			&::after {
+				display: inline-block;
+				content: '';
+				animation: load 3s infinite;
+			}
 		}
 	}
 
 	&_user-photo {
-		width: 40px;
-		height: 40px;
+		width: 45px;
+		height: 45px;
 		background-color: #E2E2E2;
 		border-radius: 50%;
-		border: 2px solid #fff;
-		z-index: 2;
-		margin-top: 25px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		overflow: hidden;
-		position: absolute;
-		
-		&-i {
-			width: 100%;
-			height: 100%;
-		}
 	}
 
 	&_block {
 		margin-left: 40px;
 	}
 
+	&_name-user {
+		display: block;
+		width: 100%;
+		font-size: 13px;
+		font-family: Roboto, sans-serif;
+		text-align: right;
+		color: #cbcbcb;
+		margin-top: 3px;
+	}
+
 	&_user-name {
 		margin: 0;
+		display: block;
 		font-size: 11px;
 		line-height: 20px;
 		color: #D3D3D3;
@@ -71,20 +121,39 @@
 
 	&_text {
 		line-height: 25px;
-		background-color: #E9E8E8;
-		padding: 5px 10px;
-		border-radius: 10px;
-		max-width: 80%;
+		padding: 6px 10px;
+		max-width: 85%;
 		min-width: 30px;
-		font-size: 15px;
+		font-size: 13px;
+		font-family: Roboto, sans-serif;
+		max-width: 180px;
 		
 		&_left {
 			min-height: 40px;
+			background-color: #eeeeee;
+			border-radius: 8px 8px 8px 0;
+			
 		}
 
 		&_right {
-			background-color: #A1B5F4;
-			margin-right: 5px;
+			background: linear-gradient(to right, #265fed, #1fa5ff);
+			color: #fff;
+			border-radius: 8px 8px 0 8px;
 		}
 	}
+
+	&-text {
+		display: flex;
+		align-items: flex-end;
+	}
+
+	&_user {
+		width: 100%;
+	}
+}
+
+@keyframes load {
+	0% {content: ' .'}
+	50% {content: ' . .'}
+	100% {content: ' . . .'}
 }

@@ -10,6 +10,7 @@ import './Form.less';
 const propTypes = {
     changeActionForm: PropTypes.func,
     changeInfoForm: PropTypes.func,
+    sendMessage: PropTypes.func,
     clearForm: PropTypes.func,
     actionForm: PropTypes.bool,
     type: PropTypes.oneOf(['Error', 'Form']),
@@ -19,6 +20,7 @@ const propTypes = {
 const defaultProps = {
     changeActionForm: () => {},
     changeInfoForm: () => {},
+    sendMessage: () => {},
     clearForm: () => {},
     actionForm: false,
     type: 'Form',
@@ -60,31 +62,33 @@ class Form extends Component {
                     {!actionForm ? null :
                         <form>
                             {type === 'Form' ? this.defaultTitile() : this.errorTitile()}
-                            <Textarea
-                                placeholder="Ваше сообщение"
-                                required={true}
-                                name="message"
-                                onChange={e => this.changeInfo(e, data, changeInfoForm)}
-                                value={data.message || ''}
-                            />
                             <Input
                                 placeholder="Ваше имя"
                                 name="name"
                                 onChange={e => this.changeInfo(e, data, changeInfoForm)}
                                 value={data.name || ''}
+                                maxlength={150}
                             />
                             <Input
-                                placeholder="Ваш телефон"
-                                name="phone"
-                                onChange={e => this.changeInfo(e, data, changeInfoForm)}
-                                value={data.phone || ''}
-                            />
-                            <Input
-                                placeholder="Ваш e-mail"
+                                placeholder="Ваш E-mail "
                                 required={true}
                                 name="email"
                                 onChange={e => this.changeInfo(e, data, changeInfoForm)}
                                 value={data.email || ''}
+                                maxlength={50}
+                            />
+                            <Input
+                                placeholder="Номер телефона"
+                                name="phone"
+                                onChange={e => this.changeInfo(e, data, changeInfoForm)}
+                                value={data.phone || ''}
+                                maxlength={30}
+                            />
+                            <Textarea
+                                placeholder="Ваше сообщение..."
+                                name="message"
+                                onChange={e => this.changeInfo(e, data, changeInfoForm)}
+                                value={data.message || ''}
                             />
                             <button
                                 className="rChat__form_send-form"
@@ -93,17 +97,22 @@ class Form extends Component {
                         </form>
                     }
                 </div>
-                {type !== 'Error' ?
+                {/* type !== 'Error' ?
                     <div
-                        className='rChat__form_action'
+                        className={`rChat__form_action ${actionForm ? 'rChat__form_action_action' : ''}`}
                         onClick={changeActionForm}
                     >
                         <p className="rChat__form_action-text">
-                            {!actionForm ? 'Отправить письмо' : 'Свернуть'}
+                            {actionForm ? 'Свернуть' :
+                                <Fragment>
+                                    или
+                                    <span> оставьте свои контакты</span>
+                                </Fragment>
+                            }
                         </p>
                     </div>
                     : null
-                }
+                */}
             </div>
         );
     }
@@ -116,7 +125,7 @@ class Form extends Component {
 
     errorTitile = () => (
         <p className="rChat__form_prev-text">
-            На сервере произошла ошибка, но вы можете написать нам на почту и мы обязательно ответим!
+            Оставьте свое сообщение в этой форме, мы получим его на e-mail и обязательно ответим!
         </p>
     )
 
@@ -153,6 +162,7 @@ class Form extends Component {
             });
 
         this.props.clearForm();
+        this.props.sendMessage({message: JSON.stringify(param).replace(/\"/g, ''), to: 'user'}, '', 'E-mail form');
     }
 }
 

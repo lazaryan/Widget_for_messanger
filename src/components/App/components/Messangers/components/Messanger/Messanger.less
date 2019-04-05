@@ -1,38 +1,33 @@
 .rChat__messanger {
-	width: 100%;
+	width: 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	transition: .5s;
+	background-color: #eeeeee;
+	margin-bottom: 3px;
+	padding: 6px 0;
+	border-radius: 0 5px 5px 0;
+	cursor: pointer;
 	
 	&:hover {
-		background-color: #F0F0F0;
+		background-color: #4fc75e;
 	}
 
 	&_active {
-		background-color: #F0F0F0;
+		background-color: #4fc75e;
 	}
 	
 	&_logo-body {
-		width: 60px;
-		height: 60px;
-		background-color: #E2E2E2;
-		border-radius: 50%;
-		overflow: hidden;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		cursor: pointer;
+		width: 30px;
+		height: 30px;
 	}
 
 	&_logo {
-		width: 100%;
-	}
-
-	&_text {
-		margin: 0;
-		line-height: 23px;
-		font-size: 16px;
+		max-width: 90%;
 	}
 }

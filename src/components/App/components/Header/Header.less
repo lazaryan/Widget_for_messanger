@@ -1,16 +1,19 @@
-@color_close: #222;
+@color_close: #2284f7;
+@bgc: linear-gradient(to right, #265fed, #1fa5ff);
 
 .rChat__header {
-	width: 420px;
-	background-color: #DEDEDE;
+	width: 340px;
+	background: @bgc;
 	border-radius: 10px 10px 0 0;
 	box-sizing: border-box;
 	max-width: 100%;
 	max-height: 15vh;
+	position: relative;
+	max-width: 80vw;
 	
 	&_disactive {
 		cursor: pointer;
-		padding: 0 20px;
+		padding: 5px 20px;
 	}
 
 	&_active {
@@ -19,38 +22,52 @@
 		align-items: center;
 		padding: 0 10px;
 	}
+
+	&-block {
+		width: 100%;
+	}
 	
 	&-title {
 		margin: 0;
-		line-height: 40px;
+		margin-top: 5px;
+		line-height: 25px;
 		font-weight: bold;
-		font-size: 15px;
+		font-size: 18px;
+		font-family: Roboto, sans-serif;
+		text-align: center;
+		color: #fff;
+		font-weight: bold;
 		
 		&_small {
 			margin: 0;
-			line-height: 25px;
+			margin-bottom: 10px;
 			font-size: 14px;
+			text-align: center;
+			color: #fff;
 		}
 	}
 
 	&-close {
-		width: 30px;
-		height: 30px;
+		width: 32px;
+		height: 32px;
 		margin-right: 20px;
 		border-radius: 50%;
-		border: 2px solid @color_close;
+		background-color: @color_close;
 		cursor: pointer;
-		position: relative;
+		position: absolute;
+		right: -32px;
+		top: -16px;
 		
 		&::before,
 		&::after {
 			content: '';
 			display: block;
-			width: 80%;
-			height: 2px;
-			background-color: @color_close;
+			width: 50%;
+			height: 3px;
+			border-radius: 2px;
+			background-color: #fff;
 			position: absolute;
-			left: 10%;
+			left: 25%;
 			top: 50%;
 		}
 

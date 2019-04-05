@@ -1,26 +1,38 @@
+@bgc: linear-gradient(to right, #1fa5ff, #265fed);
+
 .rChat__form {
-	width: 300px;
+	width: 340px;
 	max-width: 70vw;
 	position: absolute;
 	top: 0;
 	z-index: 3;
-	background-color: #FFF;
-	max-height: 70vh;
+	max-height: 80vh;
+	max-width: 80vw;
 	
 	&_action {
-		background-color: #EAE9E9;
-		border-radius: 0 0 10px 10px;
+		background-color: #2e72e6;
 		transition: .5s;
 		cursor: pointer;
-		
-		&:hover {
-			background-color: #CBCBCB;
-		}
+		width: 340px;
+		max-width: 80vw;
 
 		&-text {
 			line-height: 30px;
+			font-size: 14px;
 			text-align: center;
 			margin: 0;
+			font-family: Roboto, sans-serif;
+			color: #fff;
+			
+			&_underline {
+				padding-left: 5px;
+				text-decoration: underline;
+			}
+		}
+
+		&_action {
+			background-color: #212121;
+			color: #fff;
 		}
 	}
 
@@ -30,38 +42,38 @@
 	}
 
 	&_body {
-		height: 0;
 		opacity: 0;
 		transition: .5s;
 	}
 
 	&_body-action {
-		height: 370px;
+		height: 355px;
 		opacity: 1;
+		background-color: #fff;
 	}
 
 	&_prev-text {
+		width: 82%;
+		margin: auto;
+		margin: 13px auto;
+		font-family: Roboto, sans-serif;
 		box-sizing: border-box;
-		margin: 0;
-		margin-top: 5px;
-		margin-bottom: 10px;
-		padding: 0 10px;
-		line-height: 23px;
-		font-size: 16px;
+		line-height: 20px;
+		font-size: 13px;
 	}
 
 	&_send-form {
+		width: 85%;
 		display: block;
 		margin: 5px auto;
 		padding: 5px 10px;
 		border-radius: 5px;
 		border: none;
-		background-color: #E9E9E9;
-		transition: .5s;
+		background: @bgc;
 		cursor: pointer;
-		
-		&:hover {
-			background-color: #D1D1D1;
-		}
+		color: #fff;
+		line-height: 40px;
+		font-size: 13px;
+		font-family: Roboto, sans-serif;
 	}
 }

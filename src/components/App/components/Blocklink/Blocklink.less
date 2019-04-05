@@ -1,9 +1,11 @@
+@bgc: linear-gradient(to right, #1fa5ff, #265fed);
+
 .rChat__block-link {
 	position: absolute;
 	z-index: 4;
 	bottom: 0;
 	left: 0;
-	width: 300px;
+	width: 340px;
 	max-width: 70vw;
 	background-color: #FFF;
 	transition: .5s;
@@ -13,7 +15,7 @@
 	}
 
 	&_active {
-		height: 400px;
+		height: 270px;
 		max-height: 85vh;
 	}
 	
@@ -23,33 +25,14 @@
 	}
 
 	&_close {
-		width: 30px;
-		height: 30px;
-		margin-right: 20px;
-		border-radius: 50%;
-		border: 2px solid #222;
 		cursor: pointer;
-		position: relative;
-		
-		&::before,
-		&::after {
-			content: '';
-			display: block;
-			width: 80%;
-			height: 2px;
-			background-color: #222;
-			position: absolute;
-			left: 10%;
-			top: 50%;
-		}
-
-		&::before {
-			transform: translateY(-50%) rotate(45deg);
-		}
-
-		&::after {
-			transform: translateY(-50%) rotate(-45deg);
-		}
+		width: 100%;
+		line-height: 30px;
+		text-align: center;
+		background-color: #212121;
+		color: #fff;
+		font-size: 14px;
+		font-family: Roboto, sans-serif;
 	}
 
 	&_body {
@@ -60,25 +43,19 @@
 	}
 
 	&_link {
-		display: flex;
+		width: 165px;
+		background: @bgc;
+		line-height: 37px;
+		color: #fff;
+		font-size: 13px;
+		text-align: center;
 		text-decoration: none;
-		color: #222;
-		width: 100px;
-		height: 50px;
-		background-color: #E6E6E6;
-		justify-content: center;
-		align-items: center;
-		transition: .5s;
-		border-radius: 20px;
-		margin: 10px auto;
-		
-		&:hover {
-			background-color: #C3C3C3;
-		}
+		border-radius: 5px;
+		margin-bottom: 20px;
 	}
 
 	&_qr-code {
-		width: 80%;
+		width: 165px;
 		display: block;
 		margin: 10px auto;
 	}

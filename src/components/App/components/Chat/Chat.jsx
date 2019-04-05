@@ -12,6 +12,7 @@ const propTypes = {
     changeMessage: PropTypes.func,
     activeReply: PropTypes.func,
     message: PropTypes.string,
+    classname: PropTypes.bool,
     reply: PropTypes.bool
 };
 
@@ -22,6 +23,7 @@ const defaultProps = {
     changeMessage: () => {},
     activeReply: () => {},
     message: '',
+    classname: false,
     reply: false
 };
 
@@ -34,18 +36,22 @@ class Chat extends Component {
             message,
             changeMessage,
             reply,
-            activeReply
+            activeReply,
+            classname,
+            active
         } = this.props;
+
+        console.log('test', active);
 
         return (
             <Fragment>
-                <div className="rChat__chat" ref="sendMessage">
+                <div className={`rChat__chat ${active ? 'rChat__chat_disactive' : ''}`} ref="sendMessage">
                     {chat.map((el, index) =>
                         <Fragment key={index}>
                             {this.message({...el, userPhoto})}
                         </Fragment>
                     )}
-                    {reply ? null : this.reply()}
+                    {!reply ? null : this.reply()}
                 </div>
                 <Textbar
                     ref={() => this.scroll('sendMessage')}
@@ -62,14 +68,17 @@ class Chat extends Component {
         if (to === 'robot') {
             return (
                 <div className="rChat__message rChat__message_left">
-                    <div className="rChat__message_user-photo">
-                        {!userPhoto ? null :
-                            <img className="rChat__message_user-photo-i" src={userPhoto} />
-                        }
-                    </div>
-                    <div className="rChat__message_block">
-                        <p className="rChat__message_user-name">{name}</p>
-                        <div className="rChat__message_text rChat__message_text_left">{message}</div>
+                    <div className="rChat__message-i">
+                        <div className="rChat__message_body">
+                            <div className="rChat__message_user-photo">
+                                <img className="rChat__message_user" src={userPhoto} />
+                            </div>
+                            <div className="rChat__message_left-i">
+                                <div className="rChat__message_triangle rChat__message_triangle-left"></div>
+                                <div className="rChat__message_text rChat__message_text_left"> {message} </div>
+                            </div>
+                        </div>
+                        <div className="rChat__message_name-user"> {name} </div>
                     </div>
                 </div>
             );
@@ -77,6 +86,7 @@ class Chat extends Component {
             return (
                 <div className="rChat__message rChat__message_right">
                     <div className="rChat__message_text rChat__message_text_right">{message}</div>
+                    <div className="rChat__message_triangle rChat__message_triangle-right"></div>
                 </div>
             );
         }
@@ -86,9 +96,7 @@ class Chat extends Component {
 
     reply = () => (
         <div className="rChat__message rChat__message_left rChat__message_reply">
-            <div className="rChat__message_reply-cucle"></div>
-            <div className="rChat__message_reply-cucle"></div>
-            <div className="rChat__message_reply-cucle"></div>
+            <p className="rChat__message_reply-cucle">Ирина печатает </p>
         </div>
     )
 

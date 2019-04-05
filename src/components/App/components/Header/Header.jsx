@@ -18,17 +18,17 @@ class Header extends Component {
         const {actionChat, changeActionChat} = this.props;
 
         return (
-            <div className={`rChat__header ${actionChat ? 'rChat__header_active' : 'rChat__header_disactive'}`}>
-                {actionChat ? this.activeBlock(changeActionChat) : this.disactiveBlock(changeActionChat)}
+            <div
+                className={`rChat__header ${actionChat ? 'rChat__header_active' : 'rChat__header_disactive'}`}
+                onClick={!actionChat ? changeActionChat : () => {}}
+            >
+                {actionChat ? this.activeBlock(changeActionChat) : this.disactiveBlock()}
             </div>
         );
     }
 
-    disactiveBlock = func => (
-        <p
-            className="rChat__header-title"
-            onClick={func}
-        >Есть вопросы? Задавайте!</p>
+    disactiveBlock = () => (
+        <p className="rChat__header-title">Есть вопросы? Задавайте!</p>
     )
 
     activeBlock = func => (
@@ -39,7 +39,7 @@ class Header extends Component {
             ></div>
             <div className="rChat__header-block">
                 <p className="rChat__header-title">Напишите нам</p>
-                <p className="rChat__header-title_small">и мы ответим на все ваши вопросы</p>
+                <p className="rChat__header-title_small">и мы ответим на все ваши вопросы!</p>
             </div>
         </Fragment>
     )

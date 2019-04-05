@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import ip from 'ip';
@@ -18,11 +18,9 @@ class Chat3 extends Component {
 
         this.state = state;
 
-        this.getDefaultData();
-
         setTimeout(() => {
             this.actionChat();
-        }, 5000);
+        }, this.randomTime(7000, 15000));
 
         const cookies = new Cookies();
         const {nameCookies} = this.state;
@@ -32,12 +30,12 @@ class Chat3 extends Component {
 
             const {id} = cookies.get(nameCookies);
 
-            this.sendId(id);
+            this.sendId(ip.address(), id);
             this.sendDefaultText();
         } else {
             const {id} = cookies.get(nameCookies);
 
-            this.sendId(id);
+            this.sendId(ip.address(), id);
             this.getDialog(id);
         }
     }
@@ -59,56 +57,87 @@ class Chat3 extends Component {
 
         return (
             <div className="rChat">
-                <Header
-                    changeActionChat={this.changeActionChat}
-                    actionChat={actionChat}
-                />
-                <div className={`rChat__body ${actionChat ? 'rChat__body_action' : ''}`}>
-                    {!actionChat || error ? null :
-                        <div className="rChat__body_chat">
-                            <Form
-                                changeActionForm={this.changeActionForm}
-                                changeInfoForm={this.changeInfoForm}
-                                actionForm={actionForm}
-                                clearForm={this.clearForm}
-                                data={form}
-                            />
-                            <Chat
-                                chat={chat}
-                                message={message}
-                                addMessage={this.addMessage}
-                                changeMessage={this.changeMessage}
-                                activeReply={this.activeReply}
-                                userPhoto={userPhoto}
-                                reply={reply}
-                            />
-                        </div>
-                    }
-                    {!error ? null :
-                        <Form
-                            changeActionForm={this.changeActionForm}
-                            changeInfoForm={this.changeInfoForm}
-                            actionForm={actionForm}
-                            clearForm={this.clearForm}
-                            data={form}
-                            type="Error"
-                        />
-                    }
-                    {!actionChat ? null :
-                        <Messangers
-                            actionBlock={this.activeBlockLink}
-                            messangerAction={messangerAction}
-                            changeMessangerAction={this.changeMessangerAction}
-                            message={message}
-                        />
-                    }
-                    <Blocklink
-                        close={this.disactiveBlockLink}
-                        action={actionBlockLink && actionChat}
-                        url={blockLink.url}
-                        qr={blockLink.qrCode}
+                <div className="rChat__context">
+                    <Header
+                        changeActionChat={this.changeActionChat}
+                        actionChat={actionChat}
                     />
+                    <div
+                        className={`rChat__body
+                            ${actionChat ? 'rChat__body_action' : ''}
+                            ${actionChat && actionForm && !actionBlockLink ? 'rChat__body_action-form' : ''}`}
+                    >
+                        <div className="rChat__body_i">
+                            {!actionChat || error ? null :
+                                <div className="rChat__body_chat">
+                                    <Form
+                                        changeActionForm={this.changeActionForm}
+                                        changeInfoForm={this.changeInfoForm}
+                                        actionForm={actionForm && !actionBlockLink}
+                                        clearForm={this.clearForm}
+                                        data={form}
+                                        sendMessage={this.sendMessage}
+                                    />
+                                    <div className="rChat__body_chat-bottom">
+                                        <Chat
+                                            chat={chat}
+                                            message={message}
+                                            addMessage={this.addMessage}
+                                            changeMessage={this.changeMessage}
+                                            activeReply={this.activeReply}
+                                            userPhoto={userPhoto}
+                                            reply={reply}
+                                        />
+                                        <div
+                                            className={`rChat__form_action
+                                                ${actionForm ? 'rChat__form_action_action' : ''}`}
+                                            onClick={this.changeActionForm}
+                                        >
+                                            <p className="rChat__form_action-text">
+                                                {actionForm ? 'Свернуть' :
+                                                    <Fragment>
+                                                        или
+                                                        <span className="rChat__form_action-text_underline">
+                                                            оставьте свои контакты
+                                                        </span>
+                                                    </Fragment>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            {!error || !actionChat || actionBlockLink ? null :
+                                <Form
+                                    changeActionForm={this.changeActionForm}
+                                    changeInfoForm={this.changeInfoForm}
+                                    actionForm={actionForm}
+                                    clearForm={this.clearForm}
+                                    data={form}
+                                    type="Error"
+                                    sendMessage={this.sendMessage}
+                                />
+                            }
+                        </div>
+                    </div>
                 </div>
+                {!actionChat ? null :
+                    <Messangers
+                        actionBlock={this.activeBlockLink}
+                        messangerAction={messangerAction}
+                        changeMessangerAction={this.changeMessangerAction}
+                        message={message}
+                        sendMessage={this.sendMessage}
+                    />
+                }
+                <Blocklink
+                    close={this.disactiveBlockLink}
+                    action={actionBlockLink && actionChat}
+                    url={blockLink.url}
+                    qr={blockLink.qrCode}
+                    name={messangerAction}
+                    sendMessage={this.sendMessage}
+                />
             </div>
         );
     }
@@ -151,29 +180,6 @@ class Chat3 extends Component {
         });
     }
 
-    getDefaultData = () => {
-        axios.get('./rChatData.json')
-            .then(({data}) => {
-                if (data.PATH_TO_IMAGE_USER) {
-                    this.setState({userPhoto: data.PATH_TO_IMAGE_USER});
-                }
-
-                if (data.DIR_PHP) {
-                    this.setState({pathToAction: data.DIR_PHP});
-                }
-            })
-            .catch(error => {
-                this.writeDefaultData();
-            });
-    }
-
-    writeDefaultData = () => {
-        this.setState({
-            userPhoto: '',
-            pathToAction: './'
-        });
-    }
-
     addMessage = message => {
         const cookies = new Cookies();
 
@@ -196,24 +202,26 @@ class Chat3 extends Component {
     sendReply = message => {
         const {pathToAction} = this.state;
 
-        axios.post(`${pathToAction}send_reply.php`, JSON.stringify({message: message}))
-            .then(({data}) => {
-                if (!data) {
+        setTimeout(() => {
+            axios.post(`${pathToAction}send_reply.php`, JSON.stringify({message}))
+                .then(({data}) => {
                     this.disactiveReply();
+
+                    if (!data) {
+                        this.notReply();
+                    } else if (data instanceof Array) {
+                        data.forEach(el => {
+                            this.addMessage({to: 'robot', message: el});
+                        });
+                    } else {
+                        this.addMessage({to: 'robot', message: data});
+                    }
+                })
+                .catch(error => {
                     this.notReply();
-                } else if (data instanceof Array) {
-                    this.disactiveReply();
-                    data.forEach(el => {
-                        this.addMessage({to: 'robot', message: el});
-                    });
-                } else {
-                    this.addMessage({to: 'robot', message: data});
-                }
-            })
-            .catch(error => {
-                this.notReply();
-                console.warn(error);
-            });
+                    console.warn(error);
+                });
+        }, this.randomTime(7000, 15000));
     }
 
     notReply = () => {
@@ -222,11 +230,24 @@ class Chat3 extends Component {
         });
     }
 
-    sendMessage = (message, id) => {
+    sendMessage = (message, id, type = 'message') => {
         const {pathToAction} = this.state;
+
+        if (!id) {
+            const cookies = new Cookies();
+            const {nameCookies} = this.state;
+
+            id = cookies.get(nameCookies).id;
+        }
+
         const param = {
             message,
-            id
+            id,
+            date: new Date().toString(),
+            ip: ip.address(),
+            systemInfo: navigator.userAgent,
+            type,
+            addStatistic: message.to === 'user'
         };
 
         axios.post(`${pathToAction}add_message.php`, JSON.stringify(param))
@@ -252,7 +273,7 @@ class Chat3 extends Component {
     createCookies = nameCookie => {
         const cookies = new Cookies();
 
-        let rand = 10000 + Math.random() * (99999 + 1 - 10000);
+        let rand = 10000000 + Math.random() * (99999999 + 1 - 10000000);
         rand = Math.floor(rand);
 
         const id = ip.address().replace(/[.]/g, '') + rand;
@@ -271,10 +292,10 @@ class Chat3 extends Component {
         );
     }
 
-    sendId = id => {
+    sendId = (ipAdress, id) => {
         const {pathToAction} = this.state;
 
-        axios.post(`${pathToAction}create.php`, JSON.stringify({id}))
+        axios.post(`${pathToAction}create.php`, JSON.stringify({id, ip: ipAdress}))
             .then(response => {})
             .catch(error => {
                 console.warn(error);
@@ -306,7 +327,9 @@ class Chat3 extends Component {
     }
 
     activeReply = () => {
-        this.setState({reply: true});
+        setTimeout(() => {
+            this.setState({reply: true});
+        }, this.randomTime(1500, 2500));
     }
 
     disactiveReply = () => {
@@ -329,6 +352,8 @@ class Chat3 extends Component {
     }
 
     changeMessangerAction = name => this.setState({messangerAction: name});
+
+    randomTime = (min, max) => Math.round(min - 0.5 + Math.random() * (max - min + 1));
 }
 
 export default Chat3;

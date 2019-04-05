@@ -5,16 +5,20 @@ import './Blocklink.less';
 
 const propTypes = {
     close: PropTypes.func,
+    sendMessage: PropTypes.func,
     action: PropTypes.bool,
     url: PropTypes.string,
-    qr: PropTypes.string
+    qr: PropTypes.string,
+    name: PropTypes.string
 };
 
 const defaultProps = {
     close: () => {},
+    sendMessage: () => {},
     action: false,
     url: '#',
-    qr: ''
+    qr: '',
+    name: ''
 };
 
 class Blocklink extends Component {
@@ -23,7 +27,8 @@ class Blocklink extends Component {
             close,
             action,
             url,
-            qr
+            qr,
+            name
         } = this.props;
 
         return (
@@ -33,24 +38,33 @@ class Blocklink extends Component {
             }>
                 {!action ? null :
                     <Fragment>
-                        <header className="rChat__block-link_header">
-                            <div
-                                className="rChat__block-link_close"
-                                onClick={close}
-                            ></div>
-                        </header>
                         <div className="rChat__block-link_body">
                             {!qr ? null :
                                 <img src={qr} className="rChat__block-link_qr-code" />
                             }
                             {!url ? null :
-                                <a href={url} target="_blank" className="rChat__block-link_link">Перейти</a>
+                                <a
+                                    href={url}
+                                    target="_blank"
+                                    className="rChat__block-link_link"
+                                    onClick={this.openLink}
+                                >Перейти</a>
                             }
                         </div>
+                        <div
+                            className="rChat__block-link_close"
+                            onClick={close}
+                        >Свернуть</div>
                     </Fragment>
                 }
             </div>
         );
+    }
+
+    openLink = e => {
+        const {sendMessage, name} = this.props;
+
+        sendMessage({message: name, to: 'user'}, '', 'messenger');
     }
 }
 

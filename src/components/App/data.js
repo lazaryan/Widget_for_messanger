@@ -3,7 +3,7 @@ const state = {
     actionForm: false,
     actionBlockLink: false,
     error: false,
-    reply: true,
+    reply: false,
     form: {
         name: '',
         email: '',
@@ -15,7 +15,7 @@ const state = {
         qrCode: ''
     },
     chat: [],
-    userPhoto: '',
+    userPhoto: './rChatPHP/women.png',
     message: '',
     pathToAction: './rChatPHP/',
     nameCookies: `rChat-${location.host}`,

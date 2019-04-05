@@ -53,11 +53,17 @@ class Messanger extends Component {
         } = this.props;
 
         return (
-            <div className={`rChat__messanger
-                ${active && type === 'link' ? 'rChat__messanger_active' : ''}`}
+            <div
+                className={`rChat__messanger
+                    ${active && type === 'link' ? 'rChat__messanger_active' : ''}`}
+                onClick={type === 'link' ? this.followTheLink : null}
             >
                 {type !== 'link' || this.is_phone() ?
-                    <a href={this.renderURL()} className="rChat__messanger_logo-body">
+                    <a
+                        href={this.renderURL()}
+                        className="rChat__messanger_logo-body"
+                        onClick={this.openLink}
+                    >
                         {logo ?
                             <img src={logo} className="rChat__messanger_logo" />
                             : null
@@ -66,7 +72,6 @@ class Messanger extends Component {
                     :
                     <div
                         className="rChat__messanger_logo-body"
-                        onClick={this.followTheLink}
                     >
                         {logo ?
                             <img src={logo} className="rChat__messanger_logo" />
@@ -74,9 +79,14 @@ class Messanger extends Component {
                         }
                     </div>
                 }
-                <p className="rChat__messanger_text">{name}</p>
             </div>
         );
+    }
+
+    openLink = e => {
+        const {sendMessage, name} = this.props;
+
+        sendMessage({message: name, to: 'user'}, '', 'messenger');
     }
 
     renderURL = () => {
